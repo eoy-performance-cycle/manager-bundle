@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Build your SBI | Floward Manager Feedback Bundle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400&family=Tajawal:wght@500&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#00677F; --teal6:#005063; --teal7:#003C4A; --teal50:#E6F0F2; --teal100:#C2DBE0;
+  --ivory:#FFFBF5; --ivory200:#F7F0E6; --ivory300:#EDE3D4;
+  --char:#181817; --char4:#5C5C56; --char2:#A4A4A0; --char1:#C8C8C5;
+  --orange:#FD622A; --orange50:#FFF3EE; --mag:#E31C79;
+  --display:"Playfair Display", Georgia, serif;
+  --body:"Inter", "Helvetica Neue", Arial, sans-serif;
+}
+html[lang="ar"]{ --display:"Tajawal", "Noto Sans Arabic", Tahoma, sans-serif; --body:"Noto Sans Arabic", Tahoma, sans-serif; }
+*{box-sizing:border-box;margin:0;padding:0}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html,body{background:var(--ivory)}
+body{font-family:var(--body);color:var(--char);font-size:17px;line-height:1.65;letter-spacing:-.011em;-webkit-font-smoothing:antialiased;min-height:100vh}
+html[lang="ar"] body{letter-spacing:0}
+button,input,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+h1,h2,.display{font-family:var(--display);font-weight:400}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] .display{font-weight:500}
+h1{font-size:40px;line-height:1.08;letter-spacing:-.015em}
+h2{font-size:30px;line-height:1.15;letter-spacing:-.01em}
+html[lang="ar"] h1,html[lang="ar"] h2{letter-spacing:0;line-height:1.35}
+.eyebrow{font-family:var(--body);font-weight:500;font-size:12px;line-height:1.4;letter-spacing:.14em;text-transform:uppercase;color:var(--char4)}
+html[lang="ar"] .eyebrow{letter-spacing:0;font-size:14px;text-transform:none}
+.muted{color:var(--char4)}
+.small{font-size:15px;line-height:1.5}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:5;background:var(--teal);color:var(--ivory)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--teal);z-index:10}
+.top-in{max-width:640px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px}
+.wordmark{width:112px;height:auto;display:block;color:var(--ivory)}
+.lang{display:flex;border:1px solid rgba(255,251,245,.5);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--ivory);padding:6px 14px;font-size:14px;cursor:pointer;min-height:36px}
+.lang button[aria-pressed="true"]{background:var(--ivory);color:var(--teal);font-weight:500}
+
+/* progress: the S B I circles from the video */
+.track{max-width:640px;margin:0 auto;padding:16px 20px 0;display:flex;align-items:center;gap:10px}
+.track[hidden]{display:none}
+.dot{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--char2);display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",Georgia,serif;font-size:18px;color:var(--char4);flex:none;transition:background .25s,color .25s,border-color .25s}
+.dot.on{border-color:var(--teal);color:var(--teal);border-width:2px}
+.dot.done{background:var(--teal);border-color:var(--teal);color:var(--ivory)}
+.track .bar{flex:1;height:1.5px;background:var(--char1)}
+.track .lbl{font-size:13px;color:var(--char4);margin-inline-start:6px;white-space:nowrap}
+
+main{max-width:640px;margin:0 auto;padding:24px 20px 48px}
+.screen{display:none}
+.screen.active{display:block}
+.stack>*+*{margin-top:16px}
+.section{margin-top:32px}
+
+/* hero */
+.hero{background:var(--teal);color:var(--ivory);margin:-24px -20px 0;padding:32px 20px 36px}
+.hero .eyebrow{color:var(--ivory);opacity:.85}
+.hero h1{font-size:52px;margin-top:10px}
+html[lang="ar"] .hero h1{font-size:44px}
+.hero p{margin-top:12px;font-weight:300;font-size:19px;max-width:30em}
+html[lang="ar"] .hero p{font-weight:400}
+
+.field label{display:block;font-weight:500;font-size:15px;margin-bottom:8px}
+input[type=email],textarea{width:100%;background:#fff;border:1.5px solid var(--char1);border-radius:10px;padding:14px 16px;font-size:17px;line-height:1.5;outline:none;transition:border-color .2s}
+textarea{min-height:120px;resize:vertical}
+input[type=email]:focus,textarea:focus{border-color:var(--teal)}
+input[aria-invalid="true"]{border-color:var(--orange)}
+input[type=email]{direction:ltr;text-align:start}
+html[lang="ar"] input[type=email]{text-align:right}
+.err{display:none;align-items:flex-start;gap:8px;color:var(--char);font-size:15px;margin-top:8px}
+.err.show{display:flex}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 24px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal);color:var(--ivory);font-weight:500;font-size:16px;cursor:pointer;transition:background .2s,opacity .2s}
+.btn:hover{background:var(--teal6)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal)}
+.btn.ghost:hover{background:var(--teal50)}
+.btn.block{width:100%}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.top :focus-visible{outline-color:var(--ivory)}
+
+/* cards */
+.card{background:#fff;border:1px solid var(--ivory300);border-radius:14px;padding:20px}
+.draft{border-inline-start:4px solid var(--char2);background:var(--ivory200);border-radius:0 12px 12px 0;padding:16px 18px;font-family:var(--display);font-size:22px;line-height:1.35}
+html[dir="rtl"] .draft{border-radius:12px 0 0 12px}
+.person{display:flex;gap:14px;align-items:center}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--teal50);color:var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;flex:none}
+.notes{list-style:none;counter-reset:n}
+.notes li{position:relative;padding:12px 0 12px 0;border-top:1px solid var(--ivory300);font-size:16px;line-height:1.5;display:flex;gap:12px}
+.notes li:first-child{border-top:0}
+.notes .d{flex:none;width:8px;height:8px;border-radius:50%;background:var(--char2);margin-top:9px}
+
+/* choices */
+.choices{display:grid;gap:10px}
+.choice{text-align:start;width:100%;background:#fff;border:1.5px solid var(--char1);border-radius:12px;padding:14px 16px;cursor:pointer;font-size:16px;line-height:1.45;display:flex;gap:12px;align-items:flex-start;transition:border-color .2s,background .2s}
+.choice:hover:not(:disabled){border-color:var(--teal)}
+.choice .k{flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--char2);display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:1px}
+.choice.right{border-color:var(--teal);background:var(--teal50)}
+.choice.right .k{background:var(--teal);border-color:var(--teal);color:var(--ivory)}
+.choice.wrong{border-color:var(--orange);background:var(--orange50)}
+.choice.wrong .k{border-color:var(--orange);color:var(--orange)}
+.choice:disabled{cursor:default}
+
+.fb{display:none;gap:10px;align-items:flex-start;padding:14px 16px;border-radius:12px;font-size:15px;line-height:1.55}
+.fb.show{display:flex}
+.fb.good{background:var(--teal50)}
+.fb.warn{background:var(--orange50)}
+.ico{flex:none;width:22px;height:22px;margin-top:1px}
+
+/* sort */
+.sort-item{background:#fff;border:1.5px solid var(--char1);border-radius:12px;padding:14px 16px}
+.sort-item p{font-size:16px;line-height:1.45}
+.seg{display:flex;gap:8px;margin-top:12px}
+.seg button{flex:1;min-height:44px;border-radius:999px;border:1.5px solid var(--char1);background:transparent;cursor:pointer;font-size:15px;font-weight:500}
+.seg button[aria-pressed="true"]{border-color:var(--teal);background:var(--teal);color:var(--ivory)}
+.sort-item.right{border-color:var(--teal)}
+.sort-item.wrong{border-color:var(--orange)}
+.sort-item .why{display:none;margin-top:10px;font-size:14px;line-height:1.5;color:var(--char4);gap:8px}
+.sort-item.right .why,.sort-item.wrong .why{display:flex}
+
+/* checks */
+.checks{list-style:none;display:grid;gap:8px;margin-top:12px}
+.checks li{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--char4)}
+.checks li.pass{color:var(--char)}
+.checks li .ico{width:20px;height:20px}
+.hint{font-size:14px;color:var(--char4);margin-top:6px}
+
+/* review */
+.statement{font-family:var(--display);font-size:22px;line-height:1.45;background:#fff;border:1px solid var(--ivory300);border-radius:14px;padding:20px}
+html[lang="ar"] .statement{font-size:20px;line-height:1.8}
+.statement .s{border-bottom:2px solid var(--teal100)}
+.tagrow{display:flex;gap:8px;flex-wrap:wrap}
+.tag{font-size:13px;padding:4px 12px;border-radius:999px;background:var(--teal50);color:var(--teal7);font-weight:500}
+.model{display:none}
+.model.show{display:block}
+.model .card{background:var(--teal);color:var(--ivory);border:0}
+.model .eyebrow{color:var(--ivory);opacity:.85}
+.model .display{font-size:20px;line-height:1.5;margin-top:8px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--char);color:var(--ivory);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.preview{position:fixed;inset-inline-end:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));font-size:12px;background:var(--ivory300);color:var(--char4);padding:4px 10px;border-radius:999px;z-index:15}
+.done-hero{background:var(--teal);color:var(--ivory);border-radius:16px;padding:28px 24px}
+.done-hero .eyebrow{color:var(--ivory);opacity:.85}
+.done-hero h1{margin-top:8px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (min-width:700px){h1{font-size:48px}.hero{border-radius:0 0 20px 20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <svg class="wordmark" viewBox="370 724 1660 309" fill="currentColor" role="img" aria-label="Floward"><path d="M595.67,1027.52v-301.43h-26.41v305.54h150.61v-28.01c-39.47,15.79-81.59,23.9-124.1,23.9h-.11,0ZM370.2,1031.63h26.41v-181.71h.11c42.51,0,84.63,8.11,124.1,23.9v-28.01h-124.2v-115.61h.11c42.51,0,84.63,8.11,124.1,23.9v-28.01h-150.61v305.54h-.02,0ZM859.25,724.49c-84.76-.4-153.95,68.72-154.18,154.02-.24,85.34,68.09,154.26,153.15,154.48,84.43.22,153.84-69.22,154-154.05.16-85.12-68.12-154.06-152.97-154.46h0ZM985.58,939.56c-9.21,36.63-30.47,63.45-67.03,75.79-24.22,8.17-48.84,6.99-73.11-.87-28.4-9.19-51.86-25.83-71.5-48.03-23.38-26.42-38.37-56.99-44.2-91.84-1.37-8.16-1.67-16.49-2.11-21.06.37-32.44,7.57-58.93,26.35-81.2,18.39-21.79,42.21-33.56,70.72-35.26,38.6-2.29,71.53,11.75,100.43,36.23,26.63,22.57,45.24,50.74,56.07,83.92,8.81,27,11.36,54.58,4.39,82.31h-.01ZM1696.82,934.14c-27.93-18.7-64.04-33.05-65.89-69.11h48.73c32.36,0,71.96-18.71,71.96-68.23,0-59.13-52.51-70.71-80.59-70.71h-99.87v305.54h26.39v-302.29h59.3c88.09,0,87.58,132.44,4.77,132.45h-33.96c0,92.81,110.55,93.71,109.97,169.7h29.06c0-55.07-37.34-75.56-69.87-97.35h0ZM1883.46,726.05h-73.81v305.58h65.18c106.03,0,154.95-86.31,154.95-155.56,0-63.72-50.61-148.67-146.32-150.02h0ZM1877.19,1028.38h-41.15v-299.05h42.26c53.44,0,119.31,54.76,119.31,144.94,0,97.24-60.85,154.11-120.42,154.11h0ZM1332.85,726.09l-66.49,264.09-1.68-3.32-68.9-260.77h-18.91c0,20.03-2.23,39.99-6.65,59.52l-46.6,205.88-72.2-265.4h-29.9l84.09,305.54h19.67c0-22.7,2.54-45.32,7.58-67.45l45.07-198,1.54,3.11,67.04,262.34h21.13c0-22.68,2.8-45.28,8.34-67.27l60.03-238.27h-3.16,0ZM1408.94,726.09c0,28.51-4.75,56.83-14.04,83.79l-76.48,221.75h3.77l34.78-102.9,3.07-3.31h109.08l2.92,3.02,38.61,103.19h29.06l-118.68-305.54h-12.11.02ZM1359.48,922.26l51.09-147.96,58.96,147.96h-110.05,0Z"/></svg>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ar" aria-pressed="false">العربية</button>
+    </div>
+  </div>
+</header>
+
+<div class="track" id="track" hidden aria-hidden="true">
+  <div class="dot" data-k="s">S</div><div class="bar"></div>
+  <div class="dot" data-k="b">B</div><div class="bar"></div>
+  <div class="dot" data-k="i">I</div>
+  <span class="lbl" id="trackLbl"></span>
+</div>
+
+<main id="main" tabindex="-1">
+  <!-- 0 WELCOME -->
+  <section class="screen active" id="scr-welcome" aria-labelledby="w-h">
+    <div class="hero">
+      <div class="eyebrow" data-t="bundle"></div>
+      <h1 id="w-h" data-t="w_title"></h1>
+      <p data-t="w_lead"></p>
+    </div>
+    <div class="section stack">
+      <div class="field">
+        <label for="email" data-t="w_email_lbl"></label>
+        <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="name@floward.com" aria-describedby="emailErr">
+        <div class="err" id="emailErr" role="alert"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#FD622A" stroke-width="2"/><path d="M12 7v6M12 16.5v.5" stroke="#FD622A" stroke-width="2" stroke-linecap="round"/></svg><span id="emailErrTxt"></span></div>
+      </div>
+      <p class="small muted" data-t="w_privacy"></p>
+      <button class="btn block" id="startBtn" data-t="w_start"></button>
+      <p class="small muted" data-t="w_time"></p>
+    </div>
+  </section>
+
+  <!-- 1 SCENARIO -->
+  <section class="screen" id="scr-scenario" aria-labelledby="sc-h">
+    <div class="eyebrow" data-t="sc_eb"></div>
+    <h2 id="sc-h" style="margin-top:8px" data-t="sc_title"></h2>
+    <p style="margin-top:12px" data-t="sc_lead"></p>
+    <div class="card section">
+      <div class="person"><div class="avatar" aria-hidden="true" data-t="sc_initial"></div><div><div style="font-weight:500" data-t="sc_name"></div><div class="small muted" data-t="sc_role"></div></div></div>
+      <div class="eyebrow" style="margin-top:20px" data-t="sc_draft_lbl"></div>
+      <div class="draft" style="margin-top:8px" data-t="sc_draft"></div>
+      <div class="eyebrow" style="margin-top:24px" data-t="sc_notes_lbl"></div>
+      <ul class="notes" id="notes" style="margin-top:4px"></ul>
+    </div>
+    <p class="small muted section" data-t="sc_fiction"></p>
+    <button class="btn block" style="margin-top:16px" data-go="s" data-t="sc_go"></button>
+  </section>
+
+  <!-- 2,3,4 STEPS are rendered from data -->
+  <section class="screen" id="scr-s"></section>
+  <section class="screen" id="scr-b"></section>
+  <section class="screen" id="scr-i"></section>
+
+  <!-- 5 REVIEW -->
+  <section class="screen" id="scr-review" aria-labelledby="rv-h">
+    <div class="eyebrow" data-t="rv_eb"></div>
+    <h2 id="rv-h" style="margin-top:8px" data-t="rv_title"></h2>
+    <p style="margin-top:12px" data-t="rv_lead"></p>
+    <div class="statement section" id="statement"></div>
+    <div class="section">
+      <div class="eyebrow" data-t="rv_checks"></div>
+      <ul class="checks" id="rvChecks"></ul>
+    </div>
+    <div class="row section">
+      <button class="btn ghost" id="copyBtn" data-t="rv_copy"></button>
+      <button class="btn ghost" id="modelBtn" data-t="rv_model_btn"></button>
+      <button class="btn ghost" id="editBtn" data-t="rv_edit"></button>
+    </div>
+    <div class="model section" id="model">
+      <div class="card"><div class="eyebrow" data-t="rv_model_lbl"></div><div class="display" data-t="model"></div></div>
+      <p class="small muted" style="margin-top:12px" data-t="rv_model_note"></p>
+    </div>
+    <button class="btn block section" id="finishBtn" data-t="rv_finish"></button>
+  </section>
+
+  <!-- 6 DONE -->
+  <section class="screen" id="scr-done" aria-labelledby="dn-h">
+    <div class="done-hero">
+      <div class="eyebrow" data-t="dn_eb"></div>
+      <h1 id="dn-h" data-t="dn_title"></h1>
+      <p style="margin-top:12px;font-weight:300;font-size:19px" data-t="dn_lead"></p>
+    </div>
+    <div class="section stack">
+      <p data-t="dn_next"></p>
+      <button class="btn ghost block" id="againBtn" data-t="dn_again"></button>
+    </div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="config.js"></script>
+<script>
+(function(){
+"use strict";
+var CFG = window.SBI_CONFIG || {};
+var ACTIVITY = CFG.activityId || "sbi-practice-v1";
+var DOMAIN = (CFG.emailDomain || "floward.com").toLowerCase();
+var LIVE = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
+
+/* ---------- icons ---------- */
+var IC = {
+  ok:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="#00677F"/><path d="M7.5 12.3l3 3 6-6.3" fill="none" stroke="#FFFBF5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  warn:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#FD622A" stroke-width="2"/><path d="M12 7v6M12 16.5v.5" stroke="#FD622A" stroke-width="2" stroke-linecap="round"/></svg>',
+  idle:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#A4A4A0" stroke-width="1.5"/></svg>',
+  info:'<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10" fill="none" stroke="#00677F" stroke-width="2"/><path d="M12 11v6M12 7.5v.5" stroke="#00677F" stroke-width="2" stroke-linecap="round"/></svg>'
+};
+
+/* ---------- content ---------- */
+var T = {
+en:{
+ bundle:"Manager Feedback Bundle", w_title:"Build your SBI",
+ w_lead:"Turn a vague comment into evidence, one step at a time: Situation, Behaviour, Impact.",
+ w_email_lbl:"Your Floward email", w_privacy:"We record your email, your answers and your progress to track participation in this practice. It is practice only: the employee in it is fictional, so please do not enter real employee details.",
+ w_start:"Start practice", w_time:"About 4 minutes.",
+ e_empty:"Enter your Floward email to continue.", e_format:"That doesn’t look like an email address. Check it and try again.", e_domain:"Use your @floward.com email address.",
+ sc_eb:"The scenario", sc_title:"Meet Karim", sc_lead:"You manage Karim. It’s Manager Evaluation, and this is the comment you drafted to support his rating. Your notes from the year are below.",
+ sc_initial:"K", sc_name:"Karim", sc_role:"Hub Supervisor, Operations",
+ sc_draft_lbl:"Your draft comment", sc_draft:"“Reliable, but needs to communicate better.”",
+ sc_notes_lbl:"Your notes from the year",
+ notes:["Hard worker. Everyone likes him.","Routing system rollout, 14 to 18 Sep: no end-of-shift handover note posted on 3 of 5 days.","Seems stressed lately. Probably doesn’t care about the new process.","Morning shift started about 40 min late on those days. 22 orders missed their delivery window.","Always keeps the hub tidy."],
+ sc_fiction:"Karim and these notes are fictional, created for practice.",
+ sc_go:"Start with Situation",
+ step:"Step {n} of 3", next:"Continue", back:"Back", check:"Check my answers",
+ your_turn:"Now write it in your own words", checks_lbl:"Live check",
+ checks_note:"These checks look for common patterns. They guide your writing, they don’t grade it.",
+ s:{eb:"S: Situation", title:"When and where did it happen?", lead:"Anchor the comment to a specific moment, so Karim knows exactly what you are talking about.",
+    q:"Which situation gives the clearest anchor?",
+    opts:["This year, in general","During the routing system rollout week, 14 to 18 September","Whenever the hub gets busy"], correct:1,
+    best:"Best answer: B. A named event and a date range give Karim, and calibration, a clear reference point.",
+    fb:["Too broad. “This year” could mean anything, so Karim can’t connect the comment to a moment.","Yes. A named event and a date range give Karim, and calibration, a clear reference point.","Too vague. “Whenever” turns one observation into a pattern you haven’t shown."],
+    ph:"During…", hint:"Name the event, project or period. A date helps.",
+    c:[["anchor","Names a specific event, period or date"],["broad","Avoids broad time words like “this year” or “always”"],["len","Gives enough detail to place the moment"]]},
+ b:{eb:"B: Behaviour", title:"What did you see Karim do?", lead:"Describe the action itself. If a camera could have recorded it, it’s behaviour. If you had to guess, it’s an assumption.",
+    q:"Sort each note: seen or assumed?", seen:"Seen", assumed:"Assumed",
+    items:[["Didn’t post the end-of-shift handover note on 3 of 5 days.",1,"Observable and countable."],["Doesn’t care about the new process.",0,"A guess about his motives. You can’t see caring."],["Seems stressed lately.",0,"An interpretation of mood, not an action."],["Left the handover field blank in the shift log.",1,"You could point to the log entry."]],
+    sortGood:"All sorted correctly. Keep only what you saw in your Behaviour line.", sortSome:"{n} of 4 right. Look again at the ones marked in orange.",
+    ph:"Karim…", hint:"Use action verbs and counts. Leave out mood, motives and personality.",
+    c:[["observable","Describes an action you could see or count"],["interp","Avoids guesses about mood or motive (“seems”, “doesn’t care”)"],["absolute","Avoids absolutes like “always” or “never”"]]},
+ i:{eb:"I: Impact", title:"What did it change?", lead:"Show the real consequence for the team, the customer or the result, not what you imagine it might have caused.",
+    q:"Which note shows the impact?",
+    opts:["He seems stressed, which affects everyone.","The morning shift started about 40 minutes late on those days, and 22 orders missed their delivery window.","It probably frustrated the team."], correct:1,
+    best:"Best answer: B. A measurable effect on the team and on customers that Karim can verify.",
+    fb:["This is an assumption about mood, and “everyone” is too broad to act on.","Yes. A measurable effect on the team and on customers that Karim can verify.","“Probably” signals a guess. Impact should be something you know happened."],
+    ph:"As a result…", hint:"Link the behaviour to a result: time, orders, customers, cost or the team.",
+    c:[["consequence","States a concrete result (time, orders, customers, numbers)"],["spec","Avoids speculation (“probably”, “maybe”, “I think”)"],["who","Says who or what was affected"]]},
+ rv_eb:"Review", rv_title:"Your SBI comment", rv_lead:"Read it as Karim would. Is it specific, observable and fair?",
+ rv_checks:"How your comment measures up", rv_copy:"Copy comment", rv_copied:"Copied", rv_model_btn:"Compare with a model answer", rv_edit:"Edit my answers",
+ rv_model_lbl:"Model answer", model:"During the routing system rollout week (14 to 18 September), Karim didn’t post the end-of-shift handover note on 3 of 5 days. On those days the morning shift started about 40 minutes late, and 22 orders missed their delivery window.",
+ rv_model_note:"Yours doesn’t need to match word for word. Check that each part does the same job.",
+ rv_finish:"Finish practice",
+ sum_s:"Situation is anchored to a specific moment", sum_b:"Behaviour is observable, without labels", sum_i:"Impact shows a real consequence", sum_fix:"Worth another look: {x}",
+ dn_eb:"Practice complete", dn_title:"That’s evidence.", dn_lead:"A rating says where they landed. Your SBI comment says why.",
+ dn_next:"Now write your real comments in SuccessFactors before Manager Evaluation closes on 15 November. For each rating, ask: what was the situation, what did I see, and what did it change?",
+ dn_again:"Practise again", saveFail:"Your progress couldn’t be saved right now. You can keep practising."
+},
+ar:{
+ bundle:"حزمة التغذية الراجعة للمديرين", w_title:"اكتب تعليقك بأسلوب SBI",
+ w_lead:"حوِّل التعليق المبهم إلى دليل واضح، خطوةً بخطوة: الموقف، السلوك، الأثر.",
+ w_email_lbl:"بريدك الإلكتروني في فلاورد", w_privacy:"نسجّل بريدك الإلكتروني وإجاباتك وتقدّمك لمتابعة المشاركة في هذا التمرين. هذا تمرين فقط، والموظف فيه شخصية افتراضية، لذا يُرجى عدم إدخال بيانات موظفين حقيقيين.",
+ w_start:"ابدأ التمرين", w_time:"حوالي 4 دقائق.",
+ e_empty:"أدخل بريدك الإلكتروني في فلاورد للمتابعة.", e_format:"يبدو أن هذا ليس عنوان بريد إلكتروني صحيحاً. تحقّق منه وحاول مجدداً.", e_domain:"استخدم بريدك الإلكتروني المنتهي بـ ‎@floward.com.",
+ sc_eb:"السيناريو", sc_title:"تعرّف على كريم", sc_lead:"أنت مدير كريم. نحن الآن في مرحلة تقييم المدير، وهذا هو التعليق الذي كتبته لدعم تقييمه. ملاحظاتك خلال العام موجودة أدناه.",
+ sc_initial:"ك", sc_name:"كريم", sc_role:"مشرف مركز التوزيع، العمليات",
+ sc_draft_lbl:"مسودة تعليقك", sc_draft:"«يُعتمد عليه، لكنه يحتاج إلى تحسين تواصله.»",
+ sc_notes_lbl:"ملاحظاتك خلال العام",
+ notes:["مجتهد في عمله، ويحبه الجميع.","إطلاق نظام توجيه الطلبات، من 14 إلى 18 سبتمبر: لم يُنشر تقرير تسليم نهاية الوردية في 3 أيام من أصل 5.","يبدو متوتراً مؤخراً، وربما لا يهتم بالإجراء الجديد.","بدأت الوردية الصباحية متأخرة نحو 40 دقيقة في تلك الأيام، وفاتت 22 طلباً مواعيد التوصيل المحددة.","يحافظ دائماً على نظافة المركز وترتيبه."],
+ sc_fiction:"كريم وهذه الملاحظات افتراضية، أُعدّت لأغراض التمرين.",
+ sc_go:"ابدأ بالموقف",
+ step:"الخطوة {n} من 3", next:"متابعة", back:"رجوع", check:"تحقّق من إجاباتي",
+ your_turn:"الآن اكتبها بأسلوبك", checks_lbl:"تحقّق فوري",
+ checks_note:"تبحث هذه الفحوصات عن أنماط شائعة. هي ترشدك أثناء الكتابة، ولا تمنحك درجة.",
+ s:{eb:"S: الموقف", title:"متى وأين حدث ذلك؟", lead:"اربط التعليق بلحظة محددة، حتى يعرف كريم بالضبط ما الذي تتحدث عنه.",
+    q:"أي موقف يقدّم أوضح نقطة مرجعية؟",
+    opts:["خلال هذا العام بشكل عام","خلال أسبوع إطلاق نظام توجيه الطلبات، من 14 إلى 18 سبتمبر","كلما ازداد الضغط في المركز"], correct:1,
+    best:"الإجابة الأفضل: B. ذكر حدث محدد وفترة زمنية يمنح كريم، ولجنة المعايرة، نقطة مرجعية واضحة.",
+    fb:["عام جداً. «هذا العام» قد يعني أي شيء، فلا يستطيع كريم ربط التعليق بلحظة محددة.","صحيح. ذكر حدث محدد وفترة زمنية يمنح كريم، ولجنة المعايرة، نقطة مرجعية واضحة.","مبهم جداً. كلمة «كلما» تحوّل ملاحظة واحدة إلى نمط لم تُثبته."],
+    ph:"خلال…", hint:"اذكر الحدث أو المشروع أو الفترة. ويفيد ذكر التاريخ.",
+    c:[["anchor","يذكر حدثاً أو فترة أو تاريخاً محدداً"],["broad","يتجنب العبارات الزمنية العامة مثل «هذا العام» أو «دائماً»"],["len","يقدّم تفاصيل كافية لتحديد اللحظة"]]},
+ b:{eb:"B: السلوك", title:"ماذا رأيت كريم يفعل؟", lead:"صِف الفعل نفسه. إذا كان بإمكان كاميرا أن تسجّله فهو سلوك، وإذا اضطررت إلى التخمين فهو افتراض.",
+    q:"صنّف كل ملاحظة: شوهد أم مُفترض؟", seen:"شوهد", assumed:"مُفترض",
+    items:[["لم ينشر تقرير تسليم نهاية الوردية في 3 أيام من أصل 5.",1,"قابل للملاحظة والعدّ."],["لا يهتم بالإجراء الجديد.",0,"تخمين لدوافعه. الاهتمام لا يُرى."],["يبدو متوتراً مؤخراً.",0,"تفسير للحالة المزاجية، وليس فعلاً."],["ترك خانة التسليم فارغة في سجل الوردية.",1,"يمكنك الإشارة إلى السجل نفسه."]],
+    sortGood:"صنّفت جميع الملاحظات بشكل صحيح. احتفظ في سطر السلوك بما رأيته فقط.", sortSome:"{n} من 4 صحيحة. راجع الملاحظات المميزة باللون البرتقالي.",
+    ph:"كريم…", hint:"استخدم أفعالاً وأرقاماً. اترك الحالة المزاجية والدوافع والصفات الشخصية.",
+    c:[["observable","يصف فعلاً يمكن رؤيته أو عدّه"],["interp","يتجنب تخمين المزاج أو الدوافع («يبدو»، «لا يهتم»)"],["absolute","يتجنب الإطلاقات مثل «دائماً» أو «أبداً»"]]},
+ i:{eb:"I: الأثر", title:"ما الذي تغيّر بسبب ذلك؟", lead:"وضّح النتيجة الفعلية على الفريق أو العميل أو النتائج، لا ما تتخيل أنه ربما حدث.",
+    q:"أي ملاحظة توضح الأثر؟",
+    opts:["يبدو متوتراً، وهذا يؤثر على الجميع.","بدأت الوردية الصباحية متأخرة نحو 40 دقيقة في تلك الأيام، وفاتت 22 طلباً مواعيد التوصيل.","ربما أزعج ذلك الفريق."], correct:1,
+    best:"الإجابة الأفضل: B. أثر قابل للقياس على الفريق والعملاء، ويمكن لكريم التحقق منه.",
+    fb:["هذا افتراض عن الحالة المزاجية، وكلمة «الجميع» عامة جداً بحيث لا يمكن العمل عليها.","صحيح. أثر قابل للقياس على الفريق والعملاء، ويمكن لكريم التحقق منه.","كلمة «ربما» تدل على التخمين. الأثر يجب أن يكون شيئاً تعرف أنه حدث."],
+    ph:"ونتيجة لذلك…", hint:"اربط السلوك بنتيجة: الوقت أو الطلبات أو العملاء أو التكلفة أو الفريق.",
+    c:[["consequence","يذكر نتيجة ملموسة (وقت، طلبات، عملاء، أرقام)"],["spec","يتجنب التخمين («ربما»، «قد»، «أعتقد»)"],["who","يوضح من أو ما الذي تأثر"]]},
+ rv_eb:"المراجعة", rv_title:"تعليقك بأسلوب SBI", rv_lead:"اقرأه كما سيقرؤه كريم. هل هو محدد وقابل للملاحظة ومنصف؟",
+ rv_checks:"تقييم تعليقك", rv_copy:"انسخ التعليق", rv_copied:"تم النسخ", rv_model_btn:"قارن بإجابة نموذجية", rv_edit:"عدّل إجاباتي",
+ rv_model_lbl:"إجابة نموذجية", model:"خلال أسبوع إطلاق نظام توجيه الطلبات (من 14 إلى 18 سبتمبر)، لم ينشر كريم تقرير تسليم نهاية الوردية في 3 أيام من أصل 5. وفي تلك الأيام بدأت الوردية الصباحية متأخرة نحو 40 دقيقة، وفاتت 22 طلباً مواعيد التوصيل المحددة.",
+ rv_model_note:"ليس مطلوباً أن تطابق إجابتك النموذج حرفياً. تأكّد أن كل جزء يؤدي الدور نفسه.",
+ rv_finish:"أنهِ التمرين",
+ sum_s:"الموقف مرتبط بلحظة محددة", sum_b:"السلوك قابل للملاحظة، وخالٍ من الأحكام", sum_i:"الأثر يوضح نتيجة فعلية", sum_fix:"يستحق مراجعة أخرى: {x}",
+ dn_eb:"اكتمل التمرين", dn_title:"هذا هو الدليل.", dn_lead:"التقييم يوضح أين وصل الموظف. وتعليقك بأسلوب SBI يوضح السبب.",
+ dn_next:"اكتب الآن تعليقاتك الفعلية في SuccessFactors قبل إغلاق مرحلة تقييم المدير في 15 نوفمبر. ومع كل تقييم اسأل نفسك: ما الموقف، وماذا رأيت، وما الذي تغيّر؟",
+ dn_again:"تدرّب مرة أخرى", saveFail:"تعذّر حفظ تقدّمك الآن. يمكنك مواصلة التمرين."
+}};
+
+/* ---------- writing checks (pattern based) ---------- */
+var R = {
+ en:{
+  anchor:/\b(during|on|in|at|when|week|day|month|quarter|q[1-4]|meeting|rollout|launch|project|campaign|peak|shift|sep|september|oct|october|nov|november|jan|feb|mar|apr|may|jun|jul|aug|dec|ramadan|eid|mother['’]?s day|valentine)\b|\d/i,
+  broad:/\b(this year|in general|generally|always|never|usually|all the time|whenever|every time|overall)\b/i,
+  interp:/\b(seem|seems|seemed|appear|appears|appeared|felt|feels|attitude|lazy|careless|doesn['’]?t care|does not care|not interested|unmotivated|motivated|stressed|frustrated|personality|mindset|unprofessional|reliable|negative|positive person)\b/i,
+  absolute:/\b(always|never|constantly|every single|all the time)\b/i,
+  action:/\b(post|posted|share|shared|send|sent|miss|missed|didn['’]?t|did not|skip|skipped|left|leave|wrote|write|submit|submitted|attend|attended|call|called|update|updated|hand|handed|log|logged|complete|completed|deliver|delivered|reply|replied|answer|answered|raise|raised|flag|flagged|join|joined|arrive|arrived|set up|led|ran)\b|\d/i,
+  consequence:/\b(so|which|meant|means|led|lead to|resulted|result|caused|delayed|delay|missed|late|lost|reduced|increased|dropped|rose|fell|minutes|hours|orders|customers?|complaints?|escalations?|cost|revenue|sla|deadline|window)\b|\d|%/i,
+  spec:/\b(probably|maybe|might|may have|i think|i feel|i believe|could have|perhaps|possibly|likely)\b/i,
+  who:/\b(team|shift|colleagues?|customers?|clients?|orders?|deliver(y|ies)|business|hub|drivers?|partners?|results?|targets?)\b/i
+ },
+ ar:{
+  anchor:/(خلال|أثناء|يوم|أسبوع|شهر|الربع|اجتماع|إطلاق|مشروع|حملة|موسم|وردية|سبتمبر|أكتوبر|نوفمبر|ديسمبر|يناير|فبراير|مارس|أبريل|مايو|يونيو|يوليو|أغسطس|رمضان|العيد|عيد الأم|عندما|في)|[0-9٠-٩]/,
+  broad:/(هذا العام|بشكل عام|عموماً|عموما|دائماً|دائما|أبداً|أبدا|عادةً|عادة|كلما|في كل مرة|طوال الوقت)/,
+  interp:/(يبدو|بدا|تبدو|يشعر|شعر|موقفه|سلوكه العام|كسول|مهمل|لا يهتم|غير مهتم|غير متحمس|متوتر|محبط|شخصيته|عقليته|غير احترافي|يُعتمد عليه|يعتمد عليه)/,
+  absolute:/(دائماً|دائما|أبداً|أبدا|باستمرار|طوال الوقت)/,
+  action:/(نشر|لم ينشر|شارك|أرسل|فوّت|فوت|لم يرسل|لم يشارك|ترك|كتب|قدّم|قدم|حضر|اتصل|حدّث|حدث|سلّم|سلم|سجّل|سجل|أكمل|ردّ|رد|أبلغ|نبّه|نبه|قاد|أدار|لم)|[0-9٠-٩]/,
+  consequence:/(لذلك|مما|ما أدى|أدى|نتيجة|نتج|تسبب|تأخر|تأخير|متأخرة|فاتت|فات|خسر|انخفض|ارتفع|زاد|دقيقة|دقائق|ساعة|ساعات|طلب|طلبات|عملاء|العميل|شكاوى|تكلفة|إيرادات|الموعد)|[0-9٠-٩]|%/,
+  spec:/(ربما|قد يكون|قد|أعتقد|أظن|أشعر|من المحتمل|يحتمل|لعل)/,
+  who:/(الفريق|الوردية|الزملاء|العملاء|العميل|الطلبات|الطلب|التوصيل|العمل|المركز|السائقين|الشركاء|النتائج|الأهداف)/
+ }
+};
+function wc(s){ return (s.trim().match(/\S+/g)||[]).length; }
+function runChecks(k, text, lang){
+  var r=R[lang]||R.en, t=(text||"").trim(), out={};
+  if(!t){ return null; }
+  if(k==="s"){ out.anchor=r.anchor.test(t); out.broad=!r.broad.test(t); out.len=wc(t)>=4; }
+  if(k==="b"){ out.observable=r.action.test(t); out.interp=!r.interp.test(t); out.absolute=!r.absolute.test(t); }
+  if(k==="i"){ out.consequence=r.consequence.test(t); out.spec=!r.spec.test(t); out.who=r.who.test(t); }
+  return out;
+}
+
+/* ---------- state ---------- */
+var st, lang = "en";
+function fresh(){
+  return { session:null, email:"", startedAt:null, screen:"welcome",
+    s:{text:"",pick:null}, b:{text:"",sort:{},sorted:false}, i:{text:"",pick:null},
+    modelSeen:false };
+}
+st = fresh();
+
+/* ---------- data layer (insert-only, never blocks the learner) ---------- */
+function uuid(){ if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return (c==="x"?r:(r&3|8)).toString(16);}); }
+var warned=false;
+function post(table, row){
+  if(!LIVE){ if(window.console) console.info("[SBI preview, not saved]", table, row); return Promise.resolve(true); }
+  return fetch(CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/"+table, {
+    method:"POST", keepalive:true,
+    headers:{ "apikey":CFG.supabaseAnonKey, "Authorization":"Bearer "+CFG.supabaseAnonKey, "Content-Type":"application/json", "Prefer":"return=minimal" },
+    body:JSON.stringify(row)
+  }).then(function(res){ if(!res.ok) throw new Error(res.status); return true; })
+    .catch(function(e){ if(!warned){ warned=true; toast(T[lang].saveFail); } if(window.console) console.warn("SBI save failed", table, e); return false; });
+}
+var sessionReady = Promise.resolve();
+function track(type, step, payload){
+  if(!st.session) return;
+  var row={ session_id:st.session, activity_id:ACTIVITY, event_type:type, step:step||null, payload:payload||{}, lang:lang };
+  sessionReady.then(function(){ post("events", row); });
+}
+
+/* ---------- rendering ---------- */
+function $(s,c){ return (c||document).querySelector(s); }
+function $$(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function fmt(s,o){ return s.replace(/\{(\w+)\}/g,function(_,k){return o[k];}); }
+
+function applyStatic(){
+  var L=T[lang];
+  $$("[data-t]").forEach(function(el){ var v=L[el.getAttribute("data-t")]; if(typeof v==="string") el.textContent=v; });
+  $("#notes").innerHTML=L.notes.map(function(n){return '<li><span class="d" aria-hidden="true"></span><span>'+esc(n)+'</span></li>';}).join("");
+}
+
+function stepScreen(k){
+  var L=T[lang], d=L[k], n={s:1,b:2,i:3}[k], h='';
+  h+='<div class="eyebrow">'+esc(d.eb)+'</div>';
+  h+='<h2 style="margin-top:8px" id="h-'+k+'">'+esc(d.title)+'</h2>';
+  h+='<p style="margin-top:12px">'+esc(d.lead)+'</p>';
+  h+='<div class="section"><div style="font-weight:500;margin-bottom:12px">'+esc(d.q)+'</div>';
+  if(k==="b"){
+    h+='<div class="choices">'+d.items.map(function(it,ix){
+      var sel=st.b.sort[ix], cls=st.b.sorted?(sel===it[1]?" right":" wrong"):"";
+      return '<div class="sort-item'+cls+'"><p>'+esc(it[0])+'</p><div class="seg" role="group" aria-label="'+esc(it[0])+'">'+
+        '<button type="button" data-sort="'+ix+'" data-v="1" aria-pressed="'+(sel===1)+'"'+(st.b.sorted?" disabled":"")+'>'+esc(d.seen)+'</button>'+
+        '<button type="button" data-sort="'+ix+'" data-v="0" aria-pressed="'+(sel===0)+'"'+(st.b.sorted?" disabled":"")+'>'+esc(d.assumed)+'</button></div>'+
+        '<div class="why">'+(st.b.sorted?(sel===it[1]?IC.ok:IC.warn):"")+'<span>'+esc(it[2])+'</span></div></div>';
+    }).join("")+'</div>';
+    var all=Object.keys(st.b.sort).length===d.items.length;
+    if(!st.b.sorted){ h+='<button class="btn ghost" style="margin-top:14px" id="sortCheck"'+(all?"":" disabled")+'>'+esc(L.check)+'</button>'; }
+    else { var sc=d.items.filter(function(it,ix){return st.b.sort[ix]===it[1];}).length;
+      h+='<div class="fb show '+(sc===4?"good":"warn")+'" style="margin-top:14px" role="status">'+(sc===4?IC.ok:IC.warn)+'<span>'+esc(sc===4?d.sortGood:fmt(d.sortSome,{n:sc}))+'</span></div>'; }
+  } else {
+    var pick=st[k].pick;
+    h+='<div class="choices">'+d.opts.map(function(o,ix){
+      var cls=""; if(pick!==null){ if(ix===d.correct) cls=" right"; else if(ix===pick) cls=" wrong"; }
+      return '<button type="button" class="choice'+cls+'" data-pick="'+ix+'"'+(pick!==null?" disabled":"")+'><span class="k" aria-hidden="true">'+"ABC"[ix]+'</span><span>'+esc(o)+'</span></button>';
+    }).join("")+'</div>';
+    if(pick!==null){ var ok=pick===d.correct;
+      h+='<div class="fb show '+(ok?"good":"warn")+'" style="margin-top:12px" role="status">'+(ok?IC.ok:IC.warn)+'<span>'+esc(d.fb[pick])+(ok?"":" "+esc(d.best))+'</span></div>'; }
+  }
+  h+='</div>';
+  var unlocked = k==="b" ? st.b.sorted : st[k].pick!==null;
+  h+='<div class="section field" '+(unlocked?"":"hidden")+'><label for="ta-'+k+'">'+esc(L.your_turn)+'</label>'+
+     '<textarea id="ta-'+k+'" placeholder="'+esc(d.ph)+'" dir="auto">'+esc(st[k].text)+'</textarea>'+
+     '<div class="hint">'+esc(d.hint)+'</div>'+
+     '<div class="eyebrow" style="margin-top:16px">'+esc(L.checks_lbl)+'</div><ul class="checks" id="ck-'+k+'" aria-live="polite"></ul>'+
+     '<p class="hint">'+esc(L.checks_note)+'</p></div>';
+  h+='<div class="row section"><button class="btn ghost" data-back="'+k+'">'+esc(L.back)+'</button>'+
+     '<button class="btn" style="flex:1" data-next="'+k+'" '+(unlocked&&wc(st[k].text)>=3?"":"disabled")+'>'+esc(L.next)+'</button></div>';
+  var el=$("#scr-"+k); el.setAttribute("aria-labelledby","h-"+k); el.innerHTML=h;
+  if(unlocked) paintChecks(k);
+}
+function paintChecks(k){
+  var L=T[lang], res=runChecks(k, st[k].text, lang), ul=$("#ck-"+k); if(!ul) return;
+  ul.innerHTML=L[k].c.map(function(c){
+    var v = res ? res[c[0]] : null;
+    return '<li class="'+(v?"pass":"")+'">'+(v===null?IC.idle:(v?IC.ok:IC.warn))+'<span>'+esc(c[1])+'</span></li>';
+  }).join("");
+  var nb=$('[data-next="'+k+'"]'); if(nb) nb.disabled = wc(st[k].text)<3;
+}
+
+function sentence(t){ t=(t||"").trim(); if(!t) return ""; return /[.!?؟。]$/.test(t)?t:t+"."; }
+function compose(){
+  var s=(st.s.text||"").trim(), b=(st.b.text||"").trim(), i=sentence(st.i.text);
+  var sb = s && !/[.!?؟,،:]$/.test(s) ? s+(lang==="ar"?"، ":", ")+b : (s?sentence(s)+" ":"")+b;
+  return [sentence(sb), i].filter(Boolean).join(" ");
+}
+function renderReview(){
+  var L=T[lang];
+  $("#statement").textContent=compose();
+  var rows=[["s",L.sum_s],["b",L.sum_b],["i",L.sum_i]].map(function(p){
+    var r=runChecks(p[0], st[p[0]].text, lang)||{}, fails=L[p[0]].c.filter(function(c){return !r[c[0]];}).map(function(c){return c[1];});
+    var ok=fails.length===0;
+    return '<li class="'+(ok?"pass":"")+'">'+(ok?IC.ok:IC.warn)+'<span>'+esc(p[1])+(ok?"":'<br><span class="muted">'+esc(fmt(L.sum_fix,{x:fails.join("; ")}))+'</span>')+'</span></li>';
+  });
+  $("#rvChecks").innerHTML=rows.join("");
+  $("#model").classList.toggle("show", st.modelSeen);
+}
+function checksSnapshot(){ return { s:runChecks("s",st.s.text,lang), b:runChecks("b",st.b.text,lang), i:runChecks("i",st.i.text,lang) }; }
+
+var ORDER=["welcome","scenario","s","b","i","review","done"];
+function show(name, opts){
+  st.screen=name;
+  $$(".screen").forEach(function(s){ s.classList.remove("active"); });
+  if(name==="s"||name==="b"||name==="i") stepScreen(name);
+  if(name==="review") renderReview();
+  $("#scr-"+name).classList.add("active");
+  var tr=$("#track"), inSteps=["s","b","i","review"].indexOf(name)>-1;
+  tr.hidden=!inSteps;
+  if(inSteps){ var idx={s:0,b:1,i:2,review:3}[name];
+    $$(".dot",tr).forEach(function(d,ix){ d.classList.toggle("done", ix<idx); d.classList.toggle("on", ix===idx); });
+    $("#trackLbl").textContent = idx<3 ? fmt(T[lang].step,{n:idx+1}) : T[lang].rv_eb; }
+  window.scrollTo(0,0);
+  if(!(opts&&opts.silent)){ var m=$("#main"); m.focus({preventScroll:true}); track("step_viewed", name); }
+}
+
+function setLang(l){
+  if(l===lang) return; lang=l;
+  document.documentElement.lang=l; document.documentElement.dir = l==="ar"?"rtl":"ltr";
+  $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed", String(b.getAttribute("data-lang")===l)); });
+  applyStatic(); show(st.screen,{silent:true}); track("lang_changed", st.screen, {lang:l});
+}
+
+function toast(msg){ var t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(function(){t.classList.remove("show");},2200); }
+
+/* ---------- events ---------- */
+function validEmail(v){
+  var L=T[lang]; v=v.trim().toLowerCase();
+  if(!v) return [false,L.e_empty];
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return [false,L.e_format];
+  if(v.split("@")[1]!==DOMAIN) return [false,L.e_domain];
+  return [true,v];
+}
+$("#startBtn").addEventListener("click", function(){
+  var inp=$("#email"), r=validEmail(inp.value);
+  if(!r[0]){ inp.setAttribute("aria-invalid","true"); $("#emailErrTxt").textContent=r[1]; $("#emailErr").classList.add("show"); inp.focus(); return; }
+  inp.removeAttribute("aria-invalid"); $("#emailErr").classList.remove("show");
+  st.email=r[1]; st.session=uuid(); st.startedAt=new Date().toISOString();
+  sessionReady = post("sessions", { id:st.session, activity_id:ACTIVITY, email:st.email, lang:lang, user_agent:(navigator.userAgent||"").slice(0,300) });
+  sessionReady.then(function(){ post("events",{ session_id:st.session, activity_id:ACTIVITY, event_type:"session_started", step:"welcome", payload:{}, lang:lang }); });
+  show("scenario");
+});
+$("#email").addEventListener("keydown", function(e){ if(e.key==="Enter") $("#startBtn").click(); });
+$("#email").addEventListener("input", function(){ this.removeAttribute("aria-invalid"); $("#emailErr").classList.remove("show"); });
+
+document.addEventListener("click", function(e){
+  var t=e.target.closest("button"); if(!t) return;
+  if(t.hasAttribute("data-lang")){ setLang(t.getAttribute("data-lang")); return; }
+  if(t.hasAttribute("data-go")){ show(t.getAttribute("data-go")); return; }
+  if(t.hasAttribute("data-pick")){
+    var k=st.screen, ix=+t.getAttribute("data-pick"); if(st[k].pick!==null) return;
+    st[k].pick=ix; stepScreen(k); track("choice_answered", k, { option:ix, correct: ix===T[lang][k].correct });
+    var ta=$("#ta-"+k); if(ta) ta.scrollIntoView({behavior:"smooth",block:"center"}); return;
+  }
+  if(t.hasAttribute("data-sort")){ st.b.sort[+t.getAttribute("data-sort")]=+t.getAttribute("data-v"); stepScreen("b"); return; }
+  if(t.id==="sortCheck"){ st.b.sorted=true; var d=T[lang].b, sc=d.items.filter(function(it,ix){return st.b.sort[ix]===it[1];}).length;
+    stepScreen("b"); track("sort_checked","b",{score:sc,of:4}); return; }
+  if(t.hasAttribute("data-back")){ var k2=t.getAttribute("data-back"); show(ORDER[ORDER.indexOf(k2)-1]); return; }
+  if(t.hasAttribute("data-next")){ var k3=t.getAttribute("data-next");
+    track("step_completed", k3, { words:wc(st[k3].text), checks:runChecks(k3,st[k3].text,lang) });
+    show(ORDER[ORDER.indexOf(k3)+1]); return; }
+});
+document.addEventListener("input", function(e){
+  var m=e.target.id && e.target.id.match(/^ta-(s|b|i)$/); if(!m) return;
+  st[m[1]].text=e.target.value; paintChecks(m[1]);
+});
+$("#copyBtn").addEventListener("click", function(){
+  var txt=compose();
+  var done=function(){ toast(T[lang].rv_copied); track("copied","review"); };
+  if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(done,function(){}); }
+  else { var a=document.createElement("textarea"); a.value=txt; document.body.appendChild(a); a.select(); try{document.execCommand("copy");done();}catch(x){} a.remove(); }
+});
+$("#modelBtn").addEventListener("click", function(){ st.modelSeen=true; renderReview(); $("#model").scrollIntoView({behavior:"smooth",block:"nearest"}); track("model_revealed","review"); });
+$("#editBtn").addEventListener("click", function(){ show("s"); });
+$("#finishBtn").addEventListener("click", function(){
+  var now=new Date();
+  var row={ session_id:st.session, activity_id:ACTIVITY, email:st.email, lang:lang,
+    situation:st.s.text.trim(), behaviour:st.b.text.trim(), impact:st.i.text.trim(),
+    final_statement:compose(),
+    checks:checksSnapshot(),
+    quiz:{ s_correct: st.s.pick===T.en.s.correct, b_sort_score: T.en.b.items.filter(function(it,ix){return st.b.sort[ix]===it[1];}).length, i_correct: st.i.pick===T.en.i.correct },
+    model_viewed:st.modelSeen, started_at:st.startedAt,
+    duration_seconds: Math.round((now-new Date(st.startedAt))/1000) };
+  sessionReady.then(function(){ post("submissions", row); track("completed","review"); });
+  show("done",{silent:true}); $("#main").focus({preventScroll:true});
+});
+$("#againBtn").addEventListener("click", function(){
+  var email=st.email; st=fresh(); st.email=email; st.session=uuid(); st.startedAt=new Date().toISOString();
+  sessionReady = post("sessions", { id:st.session, activity_id:ACTIVITY, email:email, lang:lang, user_agent:(navigator.userAgent||"").slice(0,300) });
+  sessionReady.then(function(){ post("events",{ session_id:st.session, activity_id:ACTIVITY, event_type:"session_started", step:"repeat", payload:{}, lang:lang }); });
+  show("scenario");
+});
+
+/* ---------- init ---------- */
+if(/^ar\b/i.test(new URLSearchParams(location.search).get("lang")||"")) { setLang("ar"); } else { applyStatic(); }
+if(!LIVE){ var b=document.createElement("div"); b.className="preview"; b.textContent="Preview mode: not saving"; document.body.appendChild(b); }
+})();
+</script>
+</body>
+</html>
