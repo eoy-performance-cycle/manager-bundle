@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Rate the objective | Floward Manager Feedback Bundle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400&family=Tajawal:wght@500&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --teal:#00677F; --teal6:#005063; --teal7:#003C4A; --teal50:#E6F0F2; --teal100:#C2DBE0;
+  --ivory:#FFFBF5; --ivory200:#F7F0E6; --ivory300:#EDE3D4;
+  --char:#181817; --char4:#5C5C56; --char2:#A4A4A0; --char1:#C8C8C5;
+  --orange:#FD622A; --mag:#E31C79; --mag50:#FDEAF2;
+  --display:"Playfair Display", Georgia, serif;
+  --body:"Inter", "Helvetica Neue", Arial, sans-serif;
+  --num:"Playfair Display", Georgia, serif;
+}
+html[lang="ar"]{ --display:"Tajawal", "Noto Sans Arabic", Tahoma, sans-serif; --body:"Noto Sans Arabic", Tahoma, sans-serif; }
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--ivory)}
+body{font-family:var(--body);color:var(--char);font-size:17px;line-height:1.6;letter-spacing:-.011em;-webkit-font-smoothing:antialiased;min-height:100vh}
+html[lang="ar"] body{letter-spacing:0}
+button,input,textarea{font:inherit;color:inherit;letter-spacing:inherit}
+h1,h2,.display{font-family:var(--display);font-weight:400}
+html[lang="ar"] h1,html[lang="ar"] h2,html[lang="ar"] .display{font-weight:500}
+h1{font-size:40px;line-height:1.08;letter-spacing:-.015em}
+h2{font-size:28px;line-height:1.18;letter-spacing:-.01em}
+html[lang="ar"] h1,html[lang="ar"] h2{letter-spacing:0;line-height:1.35}
+.eyebrow{font-weight:500;font-size:12px;line-height:1.4;letter-spacing:.14em;text-transform:uppercase;color:var(--char4)}
+html[lang="ar"] .eyebrow{letter-spacing:0;font-size:14px;text-transform:none}
+.muted{color:var(--char4)}
+.small{font-size:15px;line-height:1.5}
+.num{font-family:var(--num);font-weight:400}
+
+.top{position:sticky;top:0;z-index:5;background:var(--teal);color:var(--ivory)}
+.top-in{max-width:680px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 20px;gap:12px}
+.wordmark{width:112px;height:auto;display:block;color:var(--ivory)}
+.lang{display:flex;border:1px solid rgba(255,251,245,.5);border-radius:999px;overflow:hidden}
+.lang button{background:none;border:0;color:var(--ivory);padding:6px 14px;font-size:14px;cursor:pointer;min-height:36px}
+.lang button[aria-pressed="true"]{background:var(--ivory);color:var(--teal);font-weight:500}
+
+.prog{max-width:680px;margin:0 auto;padding:16px 20px 0;display:flex;align-items:center;gap:6px}
+.prog[hidden]{display:none}
+.prog i{flex:1;height:4px;border-radius:4px;background:var(--char1);transition:background .3s}
+.prog i.done{background:var(--teal)}
+.prog i.on{background:var(--mag)}
+.prog span{font-size:13px;color:var(--char4);margin-inline-start:8px;white-space:nowrap}
+
+main{max-width:680px;margin:0 auto;padding:24px 20px 56px}
+.screen{display:none}
+.screen.active{display:block}
+.stack>*+*{margin-top:16px}
+.section{margin-top:28px}
+
+.hero{background:var(--teal);color:var(--ivory);margin:-24px -20px 0;padding:32px 20px 36px}
+.hero .eyebrow{color:var(--ivory);opacity:.85}
+.hero h1{font-size:50px;margin-top:10px}
+html[lang="ar"] .hero h1{font-size:42px}
+.hero p{margin-top:12px;font-weight:300;font-size:19px;max-width:30em}
+html[lang="ar"] .hero p{font-weight:400}
+.how{list-style:none;display:grid;gap:12px;counter-reset:h}
+.how li{display:flex;gap:14px;align-items:flex-start;font-size:16px;line-height:1.5}
+.how li::before{counter-increment:h;content:counter(h);flex:none;width:32px;height:32px;border-radius:50%;border:1.5px solid var(--teal);color:var(--teal);display:flex;align-items:center;justify-content:center;font-family:"Playfair Display",Georgia,serif;font-size:17px}
+
+.field label{display:block;font-weight:500;font-size:15px;margin-bottom:8px}
+input[type=email],textarea{width:100%;background:#fff;border:1.5px solid var(--char1);border-radius:10px;padding:14px 16px;font-size:17px;line-height:1.5;outline:none;transition:border-color .2s}
+textarea{min-height:104px;resize:vertical}
+input[type=email]:focus,textarea:focus{border-color:var(--teal)}
+input[aria-invalid="true"]{border-color:var(--orange)}
+input[type=email]{direction:ltr;text-align:start}
+html[lang="ar"] input[type=email]{text-align:right}
+.err{display:none;gap:8px;color:var(--char);font-size:15px;margin-top:8px}
+.err.show{display:flex}
+.hint{font-size:14px;color:var(--char4);margin-top:6px}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:50px;padding:12px 24px;border-radius:999px;border:1.5px solid var(--teal);background:var(--teal);color:var(--ivory);font-weight:500;font-size:16px;cursor:pointer;transition:background .2s,opacity .2s}
+.btn:hover{background:var(--teal6)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--teal)}
+.btn.ghost:hover{background:var(--teal50)}
+.btn.block{width:100%}
+:focus-visible{outline:3px solid var(--teal);outline-offset:2px}
+.top :focus-visible{outline-color:var(--ivory)}
+
+/* objective card */
+.obj{background:#fff;border:1px solid var(--ivory300);border-radius:16px;overflow:hidden}
+.obj-h{background:var(--teal);color:var(--ivory);padding:18px 20px;display:flex;gap:14px;align-items:center}
+.avatar{width:48px;height:48px;border-radius:50%;background:var(--ivory);color:var(--teal);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:22px;flex:none}
+.obj-h .nm{font-weight:500;font-size:17px;line-height:1.3}
+.obj-h .rl{font-size:14px;opacity:.85}
+.obj-b{padding:20px}
+.quote{font-family:var(--display);font-size:22px;line-height:1.35;border-inline-start:3px solid var(--teal100);padding-inline-start:14px}
+html[lang="ar"] .quote{font-size:20px;line-height:1.7}
+.tv{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.tv>div{background:var(--ivory200);border-radius:12px;padding:12px 14px}
+.tv .v{font-family:var(--display);font-size:24px;line-height:1.2;margin-top:2px}
+html[lang="ar"] .tv .v{font-size:21px;line-height:1.5}
+.bars{margin-top:18px}
+.bar{position:relative;height:14px;border-radius:999px;background:var(--ivory300);overflow:visible}
+.bar .fill{position:absolute;inset-inline-start:0;top:0;bottom:0;border-radius:999px;background:var(--teal);width:0;transition:width .9s cubic-bezier(.2,.8,.2,1)}
+.bar .tgt{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--char)}
+.bar .tgt::after{content:attr(data-l);position:absolute;top:-22px;transform:translateX(-50%);font-size:12px;color:var(--char4);white-space:nowrap}
+html[dir="rtl"] .bar .tgt::after{transform:translateX(50%)}
+.bar-lbl{display:flex;justify-content:space-between;font-size:13px;color:var(--char4);margin-top:8px}
+.note{margin-top:16px;display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.5;color:var(--char4);background:var(--ivory200);border-radius:12px;padding:12px 14px}
+.note b{color:var(--char);font-weight:500}
+
+/* scale picker */
+.scale{position:relative;display:flex;justify-content:space-between;padding:6px 0}
+.scale::before{content:"";position:absolute;inset-inline:20px;top:50%;height:1.5px;background:var(--char1);transform:translateY(-50%)}
+.pt{position:relative;width:42px;height:42px;border-radius:50%;background:var(--ivory);border:1.5px solid var(--teal);color:var(--teal);font-family:"Playfair Display",Georgia,serif;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s,color .2s,box-shadow .2s;padding:0}
+.pt.low{border-color:var(--char2);color:var(--char4)}
+.pt:hover:not(:disabled){transform:scale(1.08)}
+.pt[aria-pressed="true"]{background:var(--mag);border-color:var(--mag);color:var(--ivory);transform:scale(1.12)}
+.pt:disabled{cursor:default}
+.pt.rec{background:var(--teal);border-color:var(--teal);color:var(--ivory);transform:scale(1.15)}
+.pt.mine{box-shadow:0 0 0 3px var(--ivory),0 0 0 5px var(--mag)}
+.pt .tag{position:absolute;top:-24px;left:50%;transform:translateX(-50%);font:600 10px/1 Inter,sans-serif;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;padding:4px 6px;border-radius:999px}
+html[lang="ar"] .pt .tag{font-family:"Noto Sans Arabic",sans-serif;letter-spacing:0;text-transform:none;font-size:11px}
+.pt .tag.y{background:var(--mag);color:var(--ivory)}
+.pt .tag.r{background:var(--teal);color:var(--ivory);top:auto;bottom:-24px}
+.picked{margin-top:12px;min-height:26px;font-size:16px}
+.picked b{font-weight:500;color:var(--mag)}
+@media (max-width:420px){.pt{width:34px;height:34px;font-size:14px}}
+
+/* recommendation */
+.rec-card{background:var(--teal);color:var(--ivory);border-radius:16px;padding:22px 22px 20px}
+.rec-card .eyebrow{color:var(--ivory);opacity:.85}
+.rec-top{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;margin-top:6px}
+.rec-top .big{font-family:"Playfair Display",Georgia,serif;font-size:64px;line-height:1}
+.rec-top .lb{font-family:var(--display);font-size:24px;line-height:1.2}
+.calc{margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,251,245,.25);font-size:15px;line-height:1.55}
+.calc .eq{font-family:"Playfair Display",Georgia,serif;font-size:22px;margin-top:4px;direction:ltr;unicode-bidi:isolate}
+html[dir="rtl"] .calc .eq{text-align:right}
+.meaning{margin-top:10px;font-size:15px;opacity:.92}
+.scale.res{margin:34px 0 30px}
+.guide{border:1.5px solid var(--teal100);border-radius:16px;padding:18px 18px 16px;background:#fff}
+.guide-h{display:flex;align-items:center;gap:10px}
+.spark{width:34px;height:34px;border-radius:50%;background:var(--teal50);display:flex;align-items:center;justify-content:center;flex:none}
+.guide p{margin-top:10px;font-size:16px;line-height:1.6}
+.guide .yours{margin-top:12px;background:var(--ivory200);border-radius:10px;padding:10px 12px;font-size:15px;color:var(--char4)}
+.guide .model{margin-top:12px;border-inline-start:3px solid var(--teal);padding:8px 12px;font-size:15px;line-height:1.55;background:var(--teal50);border-radius:0 10px 10px 0}
+html[dir="rtl"] .guide .model{border-radius:10px 0 0 10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{font-size:13px;padding:3px 10px;border-radius:999px;background:var(--ivory300);color:var(--char)}
+
+/* summary */
+.sum{list-style:none;display:grid;gap:10px}
+.sum li{background:#fff;border:1px solid var(--ivory300);border-radius:12px;padding:12px 14px;display:flex;align-items:center;gap:12px}
+.sum .who{flex:1;font-size:15px;line-height:1.4}
+.sum .who small{display:block;color:var(--char4);font-size:13px}
+.pill{font-family:"Playfair Display",Georgia,serif;font-size:17px;width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none}
+.pill.y{border:1.5px solid var(--mag);color:var(--mag)}
+.pill.r{background:var(--teal);color:var(--ivory)}
+.pill.same{background:var(--teal);color:var(--ivory);box-shadow:0 0 0 3px var(--ivory),0 0 0 5px var(--mag)}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--char4);margin-top:8px;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.done-hero{background:var(--teal);color:var(--ivory);border-radius:16px;padding:26px 22px}
+.done-hero .eyebrow{color:var(--ivory);opacity:.85}
+.done-hero .stat{font-family:"Playfair Display",Georgia,serif;font-size:56px;line-height:1;margin-top:10px}
+.take{list-style:none;display:grid;gap:10px}
+.take li{display:flex;gap:10px;font-size:16px;line-height:1.5}
+.take li::before{content:"";flex:none;width:8px;height:8px;border-radius:50%;background:var(--teal);margin-top:9px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);background:var(--char);color:var(--ivory);padding:10px 18px;border-radius:999px;font-size:15px;opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;z-index:20}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.preview{position:fixed;inset-inline-end:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));font-size:12px;background:var(--ivory300);color:var(--char4);padding:4px 10px;border-radius:999px;z-index:15}
+.reveal{animation:up .45s ease both}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media (min-width:700px){.hero{border-radius:0 0 20px 20px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-in">
+    <svg class="wordmark" viewBox="370 724 1660 309" fill="currentColor" role="img" aria-label="Floward"><path d="M595.67,1027.52v-301.43h-26.41v305.54h150.61v-28.01c-39.47,15.79-81.59,23.9-124.1,23.9h-.11,0ZM370.2,1031.63h26.41v-181.71h.11c42.51,0,84.63,8.11,124.1,23.9v-28.01h-124.2v-115.61h.11c42.51,0,84.63,8.11,124.1,23.9v-28.01h-150.61v305.54h-.02,0ZM859.25,724.49c-84.76-.4-153.95,68.72-154.18,154.02-.24,85.34,68.09,154.26,153.15,154.48,84.43.22,153.84-69.22,154-154.05.16-85.12-68.12-154.06-152.97-154.46h0ZM985.58,939.56c-9.21,36.63-30.47,63.45-67.03,75.79-24.22,8.17-48.84,6.99-73.11-.87-28.4-9.19-51.86-25.83-71.5-48.03-23.38-26.42-38.37-56.99-44.2-91.84-1.37-8.16-1.67-16.49-2.11-21.06.37-32.44,7.57-58.93,26.35-81.2,18.39-21.79,42.21-33.56,70.72-35.26,38.6-2.29,71.53,11.75,100.43,36.23,26.63,22.57,45.24,50.74,56.07,83.92,8.81,27,11.36,54.58,4.39,82.31h-.01ZM1696.82,934.14c-27.93-18.7-64.04-33.05-65.89-69.11h48.73c32.36,0,71.96-18.71,71.96-68.23,0-59.13-52.51-70.71-80.59-70.71h-99.87v305.54h26.39v-302.29h59.3c88.09,0,87.58,132.44,4.77,132.45h-33.96c0,92.81,110.55,93.71,109.97,169.7h29.06c0-55.07-37.34-75.56-69.87-97.35h0ZM1883.46,726.05h-73.81v305.58h65.18c106.03,0,154.95-86.31,154.95-155.56,0-63.72-50.61-148.67-146.32-150.02h0ZM1877.19,1028.38h-41.15v-299.05h42.26c53.44,0,119.31,54.76,119.31,144.94,0,97.24-60.85,154.11-120.42,154.11h0ZM1332.85,726.09l-66.49,264.09-1.68-3.32-68.9-260.77h-18.91c0,20.03-2.23,39.99-6.65,59.52l-46.6,205.88-72.2-265.4h-29.9l84.09,305.54h19.67c0-22.7,2.54-45.32,7.58-67.45l45.07-198,1.54,3.11,67.04,262.34h21.13c0-22.68,2.8-45.28,8.34-67.27l60.03-238.27h-3.16,0ZM1408.94,726.09c0,28.51-4.75,56.83-14.04,83.79l-76.48,221.75h3.77l34.78-102.9,3.07-3.31h109.08l2.92,3.02,38.61,103.19h29.06l-118.68-305.54h-12.11.02ZM1359.48,922.26l51.09-147.96,58.96,147.96h-110.05,0Z"/></svg>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="ar" aria-pressed="false">العربية</button>
+    </div>
+  </div>
+</header>
+<div class="prog" id="prog" hidden aria-hidden="true"></div>
+
+<main id="main" tabindex="-1">
+  <section class="screen active" id="scr-welcome" aria-labelledby="w-h">
+    <div class="hero">
+      <div class="eyebrow" data-t="bundle"></div>
+      <h1 id="w-h" data-t="w_title"></h1>
+      <p data-t="w_lead"></p>
+    </div>
+    <div class="section">
+      <div class="eyebrow" data-t="w_how"></div>
+      <ol class="how" style="margin-top:12px"><li data-t="w_h1"></li><li data-t="w_h2"></li><li data-t="w_h3"></li></ol>
+    </div>
+    <div class="section stack">
+      <div class="field">
+        <label for="email" data-t="w_email_lbl"></label>
+        <input id="email" type="email" inputmode="email" autocomplete="email" placeholder="name@floward.com">
+        <div class="err" id="emailErr" role="alert"><span id="emailErrTxt"></span></div>
+      </div>
+      <p class="small muted" data-t="w_privacy"></p>
+      <button class="btn block" id="startBtn" data-t="w_start"></button>
+      <p class="small muted" data-t="w_time"></p>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-item" aria-labelledby="it-h"></section>
+
+  <section class="screen" id="scr-done" aria-labelledby="dn-h">
+    <div class="done-hero">
+      <div class="eyebrow" data-t="dn_eb"></div>
+      <h1 id="dn-h" style="margin-top:8px" data-t="dn_title"></h1>
+      <div class="stat" id="dnStat"></div>
+      <p style="margin-top:8px;font-size:17px" id="dnStatTxt"></p>
+    </div>
+    <div class="section">
+      <div class="eyebrow" data-t="dn_list"></div>
+      <div class="legend"><span><i style="border:1.5px solid var(--mag)"></i><span data-t="lg_you"></span></span><span><i style="background:var(--teal)"></i><span data-t="lg_rec"></span></span></div>
+      <ul class="sum" id="sum" style="margin-top:12px"></ul>
+    </div>
+    <div class="section">
+      <div class="eyebrow" data-t="dn_take"></div>
+      <ul class="take" style="margin-top:12px"><li data-t="tk1"></li><li data-t="tk2"></li><li data-t="tk3"></li></ul>
+    </div>
+    <div class="section"><button class="btn ghost block" id="againBtn" data-t="dn_again"></button></div>
+  </section>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="../sbi/config.js"></script>
+<script>
+(function(){
+"use strict";
+var CFG = window.SBI_CONFIG || {};
+var ACTIVITY = "rating-practice-v1";
+var DOMAIN = (CFG.emailDomain || "floward.com").toLowerCase();
+var LIVE = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
+
+var SCALE=[1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0];
+var LB={
+ en:["Does Not Meet","Below Expectations","Needs Improvement","Approaching","Meets","Above Average","Exceeds","Exceptional","Outstanding"],
+ ar:["لا يلبي التوقعات","دون التوقعات","يحتاج إلى تحسين","يقترب من التوقعات","يلبي التوقعات","أعلى من المتوسط","يتجاوز التوقعات","استثنائي","متميز"]};
+var RANGE={2.0:["70 to 84%","من 70 إلى 84%"],2.5:["85 to 99%","من 85 إلى 99%"],3.0:["100 to 109%","من 100 إلى 109%"],3.5:["110 to 119%","من 110 إلى 119%"],4.0:["120 to 134%","من 120 إلى 134%"],4.5:["135 to 149%","من 135 إلى 149%"],5.0:["150% and above","150% فأكثر"]};
+var MEAN={
+ en:{2.0:"Frequent misses against goals. PIP or exit depending on prior year.",2.5:"Close to standard but uneven. Performance Improvement Plan required.",3.0:"Solid, dependable, fully fulfils the role. 3.0 is strong performance.",3.5:"Above-average delivery with standout contributions. Exceeded several goals.",4.0:"Consistently strong. Surpasses goals. Proactively beyond scope.",4.5:"Exceptional execution with meaningful impact. Role-model behaviours.",5.0:"Truly transformative results with far-reaching organisational impact."},
+ ar:{2.0:"إخفاقات متكررة في تحقيق الأهداف. خطة تحسين الأداء أو إنهاء الخدمة بحسب نتيجة العام السابق.",2.5:"قريب من المستوى المطلوب لكنه غير منتظم. خطة تحسين الأداء مطلوبة.",3.0:"أداء متين يُعتمد عليه ويؤدي الدور كاملًا. التقييم 3.0 أداء قوي.",3.5:"أداء أعلى من المتوسط مع إسهامات بارزة. تجاوز عدة أهداف.",4.0:"أداء قوي باستمرار. يتجاوز الأهداف ويبادر خارج نطاق دوره.",4.5:"تنفيذ استثنائي بأثر ملموس. سلوكيات قدوة.",5.0:"نتائج تحويلية حقيقية بأثر واسع على المؤسسة."}};
+
+/* Items: real 2026 objective wording, fictional people and results. One per rating from 2.0 to 5.0. */
+var ITEMS=[
+ {id:"ai", rec:5.0, t:2.0, a:3.1, fmt:"m", ini:"N",
+  en:{name:"Nadia",role:"Data & AI Lead, Technology",obj:"Build revenue-driven AI capabilities to accelerate top-line growth",kr:"Enable $2M incremental annualised revenue from AI use cases",tl:"$2.0M revenue impact",al:"$3.1M revenue impact",note:""},
+  ar:{name:"نادية",role:"قائدة البيانات والذكاء الاصطناعي، التقنية",obj:"بناء قدرات ذكاء اصطناعي تدعم الإيرادات لتسريع النمو",kr:"تحقيق إيرادات سنوية إضافية بقيمة 2 مليون دولار من حالات استخدام الذكاء الاصطناعي",tl:"أثر إيرادات 2.0 مليون دولار",al:"أثر إيرادات 3.1 مليون دولار",note:""}},
+ {id:"cust", rec:4.5, t:38000, a:52000, fmt:"k", ini:"R",
+  en:{name:"Rami",role:"Growth Marketing, Marketing",obj:"Increase new customer acquisition through marketing channels",kr:"Achieve 38,000 monthly new customers through marketing channels",tl:"38,000 new customers a month",al:"52,000 new customers a month",note:""},
+  ar:{name:"رامي",role:"تسويق النمو، التسويق",obj:"زيادة اكتساب العملاء الجدد عبر القنوات التسويقية",kr:"تحقيق 38,000 عميل جديد شهريًا عبر القنوات التسويقية",tl:"38,000 عميل جديد شهريًا",al:"52,000 عميل جديد شهريًا",note:""}},
+ {id:"rev", rec:4.0, t:20, a:25, fmt:"p", ini:"Y",
+  en:{name:"Yousra",role:"Country Commercial Lead, Commercial",obj:"Drive sustainable revenue growth through strategic local initiatives",kr:"Achieve a minimum 20% year-on-year revenue growth by Q4 2026",tl:"20% revenue growth",al:"25% revenue growth",note:"Took over the market mid-year from a colleague."},
+  ar:{name:"يسرا",role:"قائدة تجارية للدولة، القطاع التجاري",obj:"تحقيق نمو مستدام في الإيرادات عبر مبادرات محلية استراتيجية",kr:"تحقيق نمو سنوي في الإيرادات لا يقل عن 20% بحلول الربع الرابع 2026",tl:"نمو الإيرادات 20%",al:"نمو الإيرادات 25%",note:"تولّت السوق في منتصف العام بعد زميل آخر."}},
+ {id:"avail", rec:3.5, t:85, a:95, fmt:"p", ini:"K",
+  en:{name:"Khaled",role:"Procurement Officer, Supply Chain",obj:"Overall availability across all tiers (all suppliers managed by the employee)",kr:"Improve overall availability to 85%",tl:"85% availability",al:"95% availability",note:""},
+  ar:{name:"خالد",role:"مسؤول مشتريات، سلسلة الإمداد",obj:"التوافر الكلي عبر جميع الفئات (جميع الموردين الذين يديرهم الموظف)",kr:"رفع التوافر الكلي إلى 85%",tl:"توافر 85%",al:"توافر 95%",note:""}},
+ {id:"train", rec:3.0, t:100, a:100, fmt:"p", ini:"A",
+  en:{name:"Ahmed",role:"Helper, Operations",obj:"O3: Training Completion & Active IDP",kr:"Complete 100% of assigned safety and workshop training and keep an active IDP in SAP SuccessFactors",tl:"100% of training, IDP active",al:"100% of training, IDP active",note:"Everyone loves working with him. Always the first to volunteer."},
+  ar:{name:"أحمد",role:"مساعد، العمليات",obj:"الهدف 3: إتمام التدريب وخطة تطوير فردية فعّالة",kr:"إتمام 100% من تدريبات السلامة والورشة المطلوبة والحفاظ على خطة تطوير فردية فعّالة في SAP SuccessFactors",tl:"100% من التدريب، خطة التطوير فعّالة",al:"100% من التدريب، خطة التطوير فعّالة",note:"الجميع يحب العمل معه، ودائمًا أول من يتطوع."}},
+ {id:"otd", rec:2.5, t:97, a:88, fmt:"p", ini:"T",
+  en:{name:"Tarek",role:"Driver, Operations",obj:"O1: Achieve Personal On-Time Delivery Target",kr:"Achieve a personal on-time delivery rate of at least 97% for all assigned orders",tl:"97% on time",al:"88% on time",note:"Works very hard and often stays after his shift."},
+  ar:{name:"طارق",role:"سائق، العمليات",obj:"الهدف 1: تحقيق مستهدف التسليم في الوقت المحدد",kr:"تحقيق نسبة تسليم في الوقت المحدد لا تقل عن 97% لجميع الطلبات المسندة",tl:"97% في الوقت المحدد",al:"88% في الوقت المحدد",note:"يعمل بجد كبير وكثيرًا ما يبقى بعد انتهاء نوبته."}},
+ {id:"flor", rec:2.0, t:40, a:31, fmt:"n", ini:"H",
+  en:{name:"Hana",role:"Florist, Operations",obj:"O1: Achieve Daily Floral Arrangement Throughput Target",kr:"Achieve a daily individual throughput of at least 40 orders a day",tl:"40 orders a day",al:"31 orders a day",note:"Her arrangements look beautiful, and the rest of the team averaged 33."},
+  ar:{name:"هنا",role:"منسقة زهور، العمليات",obj:"الهدف 1: تحقيق مستهدف الإنتاجية اليومية لتنسيقات الزهور",kr:"تحقيق إنتاجية فردية يومية لا تقل عن 40 طلبًا",tl:"40 طلبًا يوميًا",al:"31 طلبًا يوميًا",note:"تنسيقاتها جميلة جدًا، ومتوسط بقية الفريق كان 33."}}
+];
+
+var T={
+en:{
+ bundle:"Manager Feedback Bundle", w_title:"Rate the objective",
+ w_lead:"Seven real Floward objectives. Look at the result, make your call, explain it, then compare it with the recommendation.",
+ w_how:"How it works", w_h1:"Read the objective, the target and the actual result.", w_h2:"Pick a rating on the 1.0 to 5.0 scale and write your reason.", w_h3:"See the recommended rating, the logic behind it, and coaching from the rating guide on your reason.",
+ w_email_lbl:"Your Floward email", w_privacy:"We record your email, ratings and reasons to track participation in this practice. The people in it are fictional, so please do not enter real employee details.",
+ w_start:"Start practice", w_time:"About 6 minutes.",
+ e_empty:"Please enter your Floward email.", e_format:"That doesn't look like an email address.", e_domain:"Please use your @floward.com email.",
+ of:"{n} of {t}", objective:"Objective", kr:"Key result", target:"Target", actual:"Actual result", note:"Manager's note",
+ q_pick:"What rating would you give this objective?", picked:"Your rating: {r} {l}", q_reason:"Why? Give your reason in a sentence or two.",
+ ph:"For example: what the result was against the target, and why that leads to your rating.", min:"A few words at least, so the guide can respond to your reasoning.",
+ see:"See the recommendation", next:"Next objective", finish:"See your summary",
+ rec_eb:"Recommended rating", calc:"How it's worked out", calc_l:"Achievement = actual result ÷ target × 100", lands:"{p}% sits in the {r} range.",
+ you:"You", rec:"Rec.", guide:"Rating guide", your_reason:"Your reason", try_this:"An evidence-based reason could read:",
+ dn_eb:"Practice complete", dn_title:"Your ratings, side by side", dn_stat:"{n} of {t}", dn_stat_txt:"of your ratings aligned with the recommendation.",
+ dn_list:"Objective by objective", lg_you:"Your rating", lg_rec:"Recommended",
+ dn_take:"Take into Manager Evaluation", tk1:"Start with achievement: actual result ÷ target × 100.", tk2:"Match it to the scale. Hitting target is 3.0, and 3.0 is strong, not average.", tk3:"Rate the result, then put the numbers in your comment. Effort and behaviours belong in your feedback, not in the objective rating.",
+ dn_again:"Practise again", saveFail:"We couldn't save your progress. You can keep going."
+},
+ar:{
+ bundle:"حزمة ملاحظات المديرين", w_title:"قيّم الهدف",
+ w_lead:"سبعة أهداف حقيقية من فلاورد. اطّلع على النتيجة، واتخذ قرارك، واشرح سببه، ثم قارنه بالتقييم الموصى به.",
+ w_how:"طريقة التمرين", w_h1:"اقرأ الهدف والمستهدف والنتيجة الفعلية.", w_h2:"اختر تقييمًا على مقياس من 1.0 إلى 5.0 واكتب سببك.", w_h3:"اطّلع على التقييم الموصى به والمنطق وراءه، وتوجيه مرشد التقييم على سببك.",
+ w_email_lbl:"بريدك الإلكتروني في فلاورد", w_privacy:"نسجّل بريدك الإلكتروني وتقييماتك وأسبابك لمتابعة المشاركة في هذا التمرين. الأشخاص هنا افتراضيون، لذا يُرجى عدم إدخال بيانات موظفين حقيقيين.",
+ w_start:"ابدأ التمرين", w_time:"نحو 6 دقائق.",
+ e_empty:"يُرجى إدخال بريدك الإلكتروني في فلاورد.", e_format:"يبدو أن هذا ليس بريدًا إلكترونيًا صحيحًا.", e_domain:"يُرجى استخدام بريدك المنتهي بـ ‎@floward.com",
+ of:"{n} من {t}", objective:"الهدف", kr:"النتيجة الرئيسية", target:"المستهدف", actual:"النتيجة الفعلية", note:"ملاحظة المدير",
+ q_pick:"ما التقييم الذي تمنحه لهذا الهدف؟", picked:"تقييمك: {r} {l}", q_reason:"لماذا؟ اكتب سببك في جملة أو جملتين.",
+ ph:"مثال: ما النتيجة مقارنة بالمستهدف، ولماذا تقود إلى تقييمك.", min:"بضع كلمات على الأقل حتى يتمكن المرشد من الرد على منطقك.",
+ see:"اعرض التوصية", next:"الهدف التالي", finish:"اعرض الملخص",
+ rec_eb:"التقييم الموصى به", calc:"طريقة الحساب", calc_l:"نسبة الإنجاز = النتيجة الفعلية ÷ المستهدف × 100", lands:"تقع نسبة {p}% ضمن نطاق {r}.",
+ you:"أنت", rec:"الموصى", guide:"مرشد التقييم", your_reason:"سببك", try_this:"يمكن أن يكون السبب المبني على الأدلة كالتالي:",
+ dn_eb:"اكتمل التمرين", dn_title:"تقييماتك جنبًا إلى جنب", dn_stat:"{n} من {t}", dn_stat_txt:"من تقييماتك توافقت مع التقييم الموصى به.",
+ dn_list:"هدفًا تلو الآخر", lg_you:"تقييمك", lg_rec:"الموصى به",
+ dn_take:"خذ هذا معك إلى تقييم المدير", tk1:"ابدأ بنسبة الإنجاز: النتيجة الفعلية ÷ المستهدف × 100.", tk2:"طابقها مع المقياس. تحقيق المستهدف يساوي 3.0، و3.0 أداء قوي وليس متوسطًا.", tk3:"قيّم النتيجة، ثم اذكر الأرقام في تعليقك. الجهد والسلوكيات مكانها ملاحظاتك، لا تقييم الهدف.",
+ dn_again:"تمرّن مرة أخرى", saveFail:"تعذّر حفظ تقدمك. يمكنك المتابعة."
+}};
+
+/* ---------- rating guide (rule based, reads the learner's rating and reason) ---------- */
+var CUES={
+ effort:{en:/\b(effort|hard[\s-]?work\w*|works? (very )?hard|stays? (late|after)|overtime|long hours|dedicat\w*|committed|commitment|tries|trying)\b/i, ar:/(مجهود|جهد|يجتهد|اجتهاد|يعمل بجد|ساعات إضافية|يبقى بعد|متفان|تفان|ملتزم|التزام)/},
+ impression:{en:/\b(team player|nice|liked by|well liked|loved?|loves|friendly|positive|attitude|great person|good person|volunteer\w*|reliable|personality|deserves?|feel|feels|felt|impress\w*|beautiful|potential|talented|motivat\w*)\b/i, ar:/(متعاون|لطيف|محبوب|يحب|يحبونه|إيجابي|سلوك|شخصية|يتطوع|تطوع|يستحق|أشعر|أعتقد|انطباع|جميلة|جميل|موهوب|إمكانات|متحمس)/},
+ compare:{en:/\b(team average|others|colleagues?|rest of the team|compared|than (the )?(team|others)|peers?|best in|better than|worse than)\b/i, ar:/(متوسط الفريق|بقية الفريق|زملاء|زملائه|زميلاتها|مقارنة|أفضل من|أسوأ من|الآخرين)/},
+ context:{en:/\b(mid[\s-]?year|took over|new (to|in)|joined|inherited|market (was|is)|tough|hard market|difficult|circumstances?)\b/i, ar:/(منتصف العام|تولّت|تولى|تولت|جديد|انضم|ظروف|صعب|صعبة)/},
+ curve:{en:/\b(curve|quota|distribution|calibrat\w*|bell|forced)\b/i, ar:/(المنحنى|حصة|توزيع|معايرة)/},
+ numbers:/\d/,
+ logic:{en:/(%|percent|target|achiev|above|below|over|under|exceed|met|miss|short)/i, ar:/(%|نسبة|المستهدف|مستهدف|إنجاز|أعلى|أقل|تجاوز|حقق|تحقيق|لم يحقق|دون)/}
+};
+function rx(c){ return c[lang] || c.en; }
+function found(re,txt){ var m=(txt||"").match(new RegExp(re.source, re.flags.indexOf("g")>-1?re.flags:re.flags+"g")); return m?m.slice(0,3).map(function(s){return s.trim();}):[]; }
+function pctOf(it){ return Math.round(it.a/it.t*1000)/10; }
+function lbl(r){ return LB[lang][SCALE.indexOf(r)]; }
+function rng(r){ return RANGE[r][lang==="ar"?1:0]; }
+function steps(d){ return Math.round(Math.abs(d)/0.5); }
+
+function guide(it, pick, reason){
+  var L=lang, rec=it.rec, d=pick-rec, n=steps(d), p=pctOf(it), out=[], t=reason||"";
+  var eff=found(rx(CUES.effort),t), imp=found(rx(CUES.impression),t), cmp=found(rx(CUES.compare),t), ctx=found(rx(CUES.context),t), crv=found(rx(CUES.curve),t);
+  var usesNum=CUES.numbers.test(t), usesLogic=rx(CUES.logic).test(t);
+  var flags=eff.concat(imp,cmp,ctx,crv);
+  var E=(L==="en");
+  // 1. how the call compares
+  if(d===0){
+    out.push(E?"Your rating matches the recommendation.":"تقييمك يطابق التوصية.");
+    if(usesNum&&usesLogic) out.push(E?"Your reason ties it to the result against the target, which is exactly what makes a rating defensible in calibration.":"وسببك يربطه بالنتيجة مقارنة بالمستهدف، وهذا تحديدًا ما يجعل التقييم قابلًا للدفاع عنه في المعايرة.");
+    else out.push(E?"Make the reason as strong as the rating: name the result, the target and the achievement, so anyone reading your comment reaches the same number.":"اجعل سببك بقوة تقييمك: اذكر النتيجة والمستهدف ونسبة الإنجاز، حتى يصل كل من يقرأ تعليقك إلى الرقم نفسه.");
+  } else {
+    var dir=d>0;
+    out.push(E?("Your rating is "+n+(n===1?" step ":" steps ")+(dir?"above":"below")+" what the result supports. "+fmtNum(p)+"% achievement sits in the "+rng(rec)+" range, which is "+rec.toFixed(1)+" "+lbl(rec)+"."):
+      ("تقييمك "+(dir?"أعلى":"أقل")+" "+(n===1?"بدرجة واحدة":n===2?"بدرجتين":("بـ"+n+" "+(n<=10?"درجات":"درجة")))+" مما تدعمه النتيجة. نسبة إنجاز "+fmtNum(p)+"% تقع ضمن نطاق "+rng(rec)+"، أي "+rec.toFixed(1)+" "+lbl(rec)+"."));
+    if(dir && rec===3.0) out.push(E?"Hitting target is already a 3.0, and 3.0 is strong performance. Going higher needs a result above target, not a stronger impression.":"تحقيق المستهدف يساوي 3.0 أصلًا، و3.0 أداء قوي. الارتفاع فوقه يحتاج إلى نتيجة أعلى من المستهدف، لا إلى انطباع أقوى.");
+    if(!dir && rec===3.0) out.push(E?"Rating a met target below 3.0 treats 'met' as average. It isn't: the role was fully delivered.":"تقييم هدف تحقق مستهدفه بأقل من 3.0 يعامل التحقيق وكأنه متوسط، وهو ليس كذلك: الدور أُنجز بالكامل.");
+    if(!dir && rec>=4.0) out.push(E?"A result this far above target is what the upper part of the scale is for. Rating it down can leave strong performers unrecognised.":"نتيجة تتجاوز المستهدف بهذا القدر هي ما وُضع له الجزء الأعلى من المقياس. خفض التقييم قد يترك أصحاب الأداء القوي دون تقدير.");
+    if(dir && rec<3.0) out.push(E?"The target was missed. A rating above the evidence can feel kind, but it hides the gap and makes the development conversation harder.":"لم يتحقق المستهدف. قد يبدو التقييم الأعلى من الدليل لطيفًا، لكنه يخفي الفجوة ويصعّب حوار التطوير.");
+  }
+  // 2. what the reason leans on
+  if(eff.length||imp.length){
+    out.push(E?("Your reason leans on effort or impression ("+eff.concat(imp).join(", ")+"). They matter, but the objective rating is about the result. Recognise them in your comment and in the competency ratings."):
+      ("يعتمد سببك على الجهد أو الانطباع ("+eff.concat(imp).join("، ")+"). هذه أمور مهمة، لكن تقييم الهدف يتعلق بالنتيجة. اذكرها في تعليقك وفي تقييم الكفاءات."));
+  }
+  if(cmp.length){
+    out.push(E?"You compared the person with others. Rate the result against the person's own target; comparing with colleagues pulls ratings toward the team, not the evidence.":"قارنت الشخص بالآخرين. قيّم النتيجة مقابل المستهدف الخاص به؛ فالمقارنة بالزملاء تشدّ التقييم نحو الفريق لا نحو الدليل.");
+  }
+  if(ctx.length && d!==0){
+    out.push(E?"Context like a mid-year handover is worth noting in your comment, but it doesn't change the achievement against target.":"السياق مثل تسلّم العمل في منتصف العام يستحق الذكر في تعليقك، لكنه لا يغيّر نسبة الإنجاز مقابل المستهدف.");
+  }
+  if(crv.length){
+    out.push(E?"Rate each objective on its evidence first. Calibration comes after Manager Evaluation, not before it.":"قيّم كل هدف بناءً على دليله أولًا. المعايرة تأتي بعد تقييم المدير لا قبله.");
+  }
+  if(!flags.length && d!==0 && !usesNum){
+    out.push(E?"Try anchoring your reason in the numbers first: the result, the target, and the percentage between them.":"جرّب أن تبني سببك على الأرقام أولًا: النتيجة والمستهدف والنسبة بينهما.");
+  }
+  if(!flags.length && d!==0 && usesNum){
+    out.push(E?"You used numbers, which is the right instinct. Check the division: "+fmtV(it,it.a)+" ÷ "+fmtV(it,it.t)+" × 100 = "+fmtNum(p)+"%.":"استخدمت الأرقام، وهذا هو التوجه الصحيح. راجع القسمة: \u2066"+fmtV(it,it.a)+" ÷ "+fmtV(it,it.t)+" × 100 = "+fmtNum(p)+"%\u2069.");
+  }
+  var model = E ? (it.en.al+" against a target of "+it.en.tl+": "+fmtNum(p)+"% achievement, in the "+rng(rec)+" range, so "+rec.toFixed(1)+" "+lbl(rec)+".")
+                : (it.ar.al+" مقابل مستهدف "+it.ar.tl+": نسبة إنجاز "+fmtNum(p)+"%، ضمن نطاق "+rng(rec)+"، أي "+rec.toFixed(1)+" "+lbl(rec)+".");
+  return { lines:out, model:model, flags:{effort:eff.length>0,impression:imp.length>0,compare:cmp.length>0,context:ctx.length>0,curve:crv.length>0,numbers:usesNum} };
+}
+
+/* ---------- formatting ---------- */
+function fmtNum(x){ return (Math.round(x*10)/10).toString(); }
+function fmtV(it,v){
+  if(it.fmt==="m") return "$"+v.toFixed(1)+"M";
+  if(it.fmt==="k") return v.toLocaleString("en-US");
+  if(it.fmt==="p") return v+"%";
+  return String(v);
+}
+
+/* ---------- state ---------- */
+var st, lang="en";
+function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var x=a[i];a[i]=a[j];a[j]=x; }
+  var asc=true,desc=true; for(var k=1;k<a.length;k++){ if(a[k].rec<a[k-1].rec) asc=false; if(a[k].rec>a[k-1].rec) desc=false; }
+  return (asc||desc)?shuffle(a):a; }
+function fresh(){ return { session:null, email:"", startedAt:null, screen:"welcome", order:shuffle(ITEMS).map(function(i){return i.id;}), idx:0, ans:{} }; }
+st=fresh();
+function cur(){ var id=st.order[st.idx]; return ITEMS.filter(function(i){return i.id===id;})[0]; }
+
+/* ---------- data layer (insert-only, never blocks) ---------- */
+function uuid(){ if(window.crypto && crypto.randomUUID) return crypto.randomUUID();
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,function(c){var r=Math.random()*16|0;return (c==="x"?r:(r&3|8)).toString(16);}); }
+var warned=false;
+function post(table,row){
+  if(!LIVE){ if(window.console) console.info("[Rating preview, not saved]",table,row); return Promise.resolve(true); }
+  return fetch(CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/"+table,{ method:"POST", keepalive:true,
+    headers:{ "apikey":CFG.supabaseAnonKey, "Authorization":"Bearer "+CFG.supabaseAnonKey, "Content-Type":"application/json", "Prefer":"return=minimal" },
+    body:JSON.stringify(row) }).then(function(r){ if(!r.ok) throw new Error(r.status); return true; })
+    .catch(function(e){ if(!warned){ warned=true; toast(T[lang].saveFail); } if(window.console) console.warn("Rating save failed",table,e); return false; });
+}
+var sessionReady=Promise.resolve();
+function track(type,step,payload){ if(!st.session) return;
+  var row={ session_id:st.session, activity_id:ACTIVITY, event_type:type, step:step||null, payload:payload||{}, lang:lang };
+  sessionReady.then(function(){ post("events",row); }); }
+
+/* ---------- helpers ---------- */
+function $(s,c){ return (c||document).querySelector(s); }
+function $$(s,c){ return Array.prototype.slice.call((c||document).querySelectorAll(s)); }
+function esc(s){ return String(s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function fmt(s,o){ return s.replace(/\{(\w+)\}/g,function(_,k){return o[k];}); }
+function wc(t){ return (t||"").trim().split(/\s+/).filter(Boolean).length; }
+function toast(m){ var t=$("#toast"); t.textContent=m; t.classList.add("show"); clearTimeout(toast._t); toast._t=setTimeout(function(){t.classList.remove("show");},2400); }
+function applyStatic(){ var L=T[lang]; $$("[data-t]").forEach(function(el){ var v=L[el.getAttribute("data-t")]; if(typeof v==="string") el.textContent=v; }); }
+
+var SPARK='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.1 6.4 6.4 2.1-6.4 2.1L12 19.5l-2.1-6.4L3.5 11l6.4-2.1z" fill="#00677F"/><circle cx="19" cy="4.5" r="1.6" fill="#E31C79"/></svg>';
+
+function scaleHTML(it, a, locked){
+  return '<div class="scale'+(locked?' res':'')+'" role="radiogroup" aria-label="'+esc(T[lang].q_pick)+'">'+SCALE.map(function(r,i){
+    var cls="pt"+(r<3?" low":""), tags="";
+    if(locked){ if(r===it.rec) cls+=" rec"; if(a.pick===r) cls+=" mine";
+      if(a.pick===r) tags+='<span class="tag y">'+esc(T[lang].you)+'</span>';
+      if(r===it.rec) tags+='<span class="tag r">'+esc(T[lang].rec)+'</span>'; }
+    var pressed=!locked && a.pick===r;
+    return '<button type="button" class="'+cls+'" data-r="'+r+'" role="radio" aria-checked="'+pressed+'" aria-pressed="'+pressed+'" aria-label="'+r.toFixed(1)+' '+esc(LB[lang][i])+'"'+(locked?' disabled':'')+'>'+r.toFixed(1)+tags+'</button>';
+  }).join("")+'</div>';
+}
+
+function renderItem(){
+  var it=cur(), L=T[lang], c=it[lang], a=st.ans[it.id]||(st.ans[it.id]={pick:null,reason:"",done:false}), n=st.idx+1, tot=st.order.length;
+  var max=Math.max(it.a,it.t)*1.18, fillW=Math.min(100,it.a/max*100), tgtX=it.t/max*100;
+  var h='';
+  h+='<div class="eyebrow">'+esc(fmt(L.of,{n:n,t:tot}))+'</div>';
+  h+='<div class="obj section" style="margin-top:12px"><div class="obj-h"><div class="avatar" aria-hidden="true">'+esc(lang==="ar"?c.name.charAt(0):it.ini)+'</div><div><div class="nm" id="it-h">'+esc(c.name)+'</div><div class="rl">'+esc(c.role)+'</div></div></div>';
+  h+='<div class="obj-b"><div class="eyebrow">'+esc(L.objective)+'</div><div class="quote" style="margin-top:8px">'+esc(c.obj)+'</div>';
+  h+='<p class="small muted" style="margin-top:10px"><span style="font-weight:500;color:var(--char)">'+esc(L.kr)+':</span> '+esc(c.kr)+'</p>';
+  h+='<div class="tv"><div><div class="eyebrow">'+esc(L.target)+'</div><div class="v">'+esc(c.tl)+'</div></div><div><div class="eyebrow">'+esc(L.actual)+'</div><div class="v">'+esc(c.al)+'</div></div></div>';
+  h+='<div class="bars" aria-hidden="true" style="margin-top:34px"><div class="bar"><div class="fill" id="fill"></div><div class="tgt" style="inset-inline-start:'+tgtX.toFixed(1)+'%" data-l="'+esc(L.target)+'"></div></div></div>';
+  if(c.note) h+='<div class="note"><svg width="18" height="18" viewBox="0 0 24 24" style="flex:none;margin-top:2px" aria-hidden="true"><path d="M5 4h14v12H9l-4 4z" fill="none" stroke="#5C5C56" stroke-width="1.6" stroke-linejoin="round"/></svg><span><b>'+esc(L.note)+':</b> '+esc(c.note)+'</span></div>';
+  h+='</div></div>';
+  if(!a.done){
+    h+='<div class="section"><div style="font-weight:500;margin-bottom:28px">'+esc(L.q_pick)+'</div>'+scaleHTML(it,a,false);
+    h+='<div class="picked" id="picked">'+(a.pick!==null?fmt(L.picked,{r:'<b>'+a.pick.toFixed(1)+'</b>',l:'<b>'+esc(lbl(a.pick))+'</b>'}):'')+'</div></div>';
+    h+='<div class="section field"><label for="reason">'+esc(L.q_reason)+'</label><textarea id="reason" dir="auto" maxlength="600" placeholder="'+esc(L.ph)+'">'+esc(a.reason)+'</textarea><div class="hint">'+esc(L.min)+'</div></div>';
+    h+='<button class="btn block section" id="seeBtn"'+(a.pick!==null&&wc(a.reason)>=4?'':' disabled')+'>'+esc(L.see)+'</button>';
+  } else {
+    var p=pctOf(it), g=a.g||guide(it,a.pick,a.reason);
+    h+='<div class="section reveal">'+scaleHTML(it,a,true);
+    h+='<div class="rec-card"><div class="eyebrow">'+esc(L.rec_eb)+'</div><div class="rec-top"><div class="lb">'+esc(lbl(it.rec))+'</div><div class="big">'+it.rec.toFixed(1)+'</div></div>';
+    h+='<div class="calc"><div style="opacity:.85">'+esc(L.calc)+': '+esc(L.calc_l)+'</div><div class="eq">'+esc(fmtV(it,it.a))+' ÷ '+esc(fmtV(it,it.t))+' × 100 = '+fmtNum(p)+'%</div><div style="margin-top:4px">'+esc(fmt(L.lands,{p:fmtNum(p),r:rng(it.rec)}))+'</div><div class="meaning">'+esc(MEAN[lang][it.rec])+'</div></div></div></div>';
+    h+='<div class="guide section reveal" style="animation-delay:.15s"><div class="guide-h"><div class="spark">'+SPARK+'</div><div class="eyebrow" style="color:var(--teal)">'+esc(L.guide)+'</div></div>';
+    h+=g.lines.map(function(l){return '<p>'+esc(l)+'</p>';}).join("");
+    h+='<div class="yours"><span style="font-weight:500;color:var(--char)">'+esc(L.your_reason)+':</span> '+esc(a.reason)+'</div>';
+    h+='<p class="small" style="margin-top:14px;font-weight:500">'+esc(L.try_this)+'</p><div class="model">'+esc(g.model)+'</div></div>';
+    h+='<button class="btn block section" id="nextBtn">'+esc(st.idx<st.order.length-1?L.next:L.finish)+'</button>';
+  }
+  $("#scr-item").innerHTML=h;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ var f=$("#fill"); if(f) f.style.width=fillW.toFixed(1)+"%"; }); });
+}
+
+function renderProg(){
+  var pr=$("#prog"), on=st.screen==="item";
+  pr.hidden=!on; if(!on) return;
+  pr.innerHTML=st.order.map(function(id,i){ return '<i class="'+(i<st.idx||(i===st.idx&&st.ans[id]&&st.ans[id].done)?'done':(i===st.idx?'on':''))+'"></i>'; }).join("")+'<span>'+esc(fmt(T[lang].of,{n:st.idx+1,t:st.order.length}))+'</span>';
+}
+
+function renderDone(){
+  var L=T[lang], same=0;
+  $("#sum").innerHTML=st.order.map(function(id){ var it=ITEMS.filter(function(i){return i.id===id;})[0], a=st.ans[id]||{}, c=it[lang];
+    if(a.pick===it.rec) same++;
+    var pills = a.pick===it.rec ? '<div class="pill same">'+it.rec.toFixed(1)+'</div>' : '<div class="pill y">'+(a.pick!=null?a.pick.toFixed(1):"-")+'</div><div class="pill r">'+it.rec.toFixed(1)+'</div>';
+    return '<li><div class="who">'+esc(c.name)+' <small>'+esc(c.obj)+'</small></div>'+pills+'</li>'; }).join("");
+  $("#dnStat").textContent=fmt(L.dn_stat,{n:same,t:st.order.length});
+  $("#dnStatTxt").textContent=L.dn_stat_txt;
+  return same;
+}
+
+function show(name,opts){
+  st.screen=name;
+  $$(".screen").forEach(function(s){ s.classList.remove("active"); });
+  if(name==="item") renderItem();
+  if(name==="done") renderDone();
+  $("#scr-"+name).classList.add("active");
+  renderProg(); window.scrollTo(0,0);
+  if(!(opts&&opts.silent)){ $("#main").focus({preventScroll:true}); track("step_viewed", name==="item"?("item-"+cur().id):name); }
+}
+function setLang(l){
+  if(l===lang) return; lang=l;
+  document.documentElement.lang=l; document.documentElement.dir=l==="ar"?"rtl":"ltr";
+  $$(".lang button").forEach(function(b){ b.setAttribute("aria-pressed",String(b.getAttribute("data-lang")===l)); });
+  Object.keys(st.ans).forEach(function(k){ var a=st.ans[k]; if(a.done){ a.g=guide(ITEMS.filter(function(i){return i.id===k;})[0],a.pick,a.reason); } });
+  applyStatic(); show(st.screen,{silent:true}); track("lang_changed",st.screen,{lang:l});
+}
+
+/* ---------- events ---------- */
+function validEmail(v){ var L=T[lang]; v=v.trim().toLowerCase();
+  if(!v) return [false,L.e_empty]; if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return [false,L.e_format];
+  if(v.split("@")[1]!==DOMAIN) return [false,L.e_domain]; return [true,v]; }
+function startSession(step){
+  st.session=uuid(); st.startedAt=new Date().toISOString();
+  sessionReady=post("sessions",{ id:st.session, activity_id:ACTIVITY, email:st.email, lang:lang, user_agent:(navigator.userAgent||"").slice(0,300) });
+  sessionReady.then(function(){ post("events",{ session_id:st.session, activity_id:ACTIVITY, event_type:"session_started", step:step, payload:{order:st.order}, lang:lang }); });
+}
+$("#startBtn").addEventListener("click",function(){
+  var inp=$("#email"), r=validEmail(inp.value);
+  if(!r[0]){ inp.setAttribute("aria-invalid","true"); $("#emailErrTxt").textContent=r[1]; $("#emailErr").classList.add("show"); inp.focus(); return; }
+  inp.removeAttribute("aria-invalid"); $("#emailErr").classList.remove("show");
+  st.email=r[1]; startSession("welcome"); show("item");
+});
+$("#email").addEventListener("keydown",function(e){ if(e.key==="Enter") $("#startBtn").click(); });
+$("#email").addEventListener("input",function(){ this.removeAttribute("aria-invalid"); $("#emailErr").classList.remove("show"); });
+
+document.addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b) return;
+  if(b.hasAttribute("data-lang")){ setLang(b.getAttribute("data-lang")); return; }
+  if(b.hasAttribute("data-r") && !b.disabled){ var it=cur(), a=st.ans[it.id]; a.pick=parseFloat(b.getAttribute("data-r"));
+    $$(".pt").forEach(function(p){ var on=parseFloat(p.getAttribute("data-r"))===a.pick; p.setAttribute("aria-pressed",String(on)); p.setAttribute("aria-checked",String(on)); });
+    $("#picked").innerHTML=fmt(T[lang].picked,{r:'<b>'+a.pick.toFixed(1)+'</b>',l:'<b>'+esc(lbl(a.pick))+'</b>'});
+    $("#seeBtn").disabled=!(wc(a.reason)>=4); return; }
+  if(b.id==="seeBtn"){ var it2=cur(), a2=st.ans[it2.id]; a2.done=true; a2.g=guide(it2,a2.pick,a2.reason);
+    track("choice_answered","item-"+it2.id,{ pick:a2.pick, recommended:it2.rec, gap:Math.round((a2.pick-it2.rec)*10)/10, aligned:a2.pick===it2.rec, reason:a2.reason.slice(0,600), flags:a2.g.flags });
+    renderItem(); renderProg(); var sc=$(".reveal"); if(sc) sc.scrollIntoView({behavior:"smooth",block:"start"}); return; }
+  if(b.id==="nextBtn"){ track("step_completed","item-"+cur().id,{});
+    if(st.idx<st.order.length-1){ st.idx++; show("item"); }
+    else { var same=0; show("done",{silent:true}); $("#main").focus({preventScroll:true});
+      var items=st.order.map(function(id){ var it=ITEMS.filter(function(i){return i.id===id;})[0], a=st.ans[id]; if(a.pick===it.rec) same++;
+        return { id:id, pick:a.pick, recommended:it.rec, reason:(a.reason||"").slice(0,600), flags:a.g?a.g.flags:{} }; });
+      var now=new Date();
+      var row={ session_id:st.session, activity_id:ACTIVITY, email:st.email, lang:lang,
+        final_statement:("Aligned "+same+" of "+items.length+". "+items.map(function(x){return x.id+": "+x.pick+" vs "+x.recommended;}).join("; ")).slice(0,6200),
+        quiz:{ aligned:same, of:items.length, items:items },
+        started_at:st.startedAt, duration_seconds:Math.max(0,Math.min(86400,Math.round((now-new Date(st.startedAt))/1000))) };
+      sessionReady.then(function(){ post("submissions",row); track("completed","done",{aligned:same,of:items.length}); }); }
+    return; }
+  if(b.id==="againBtn"){ var em=st.email; st=fresh(); st.email=em; startSession("repeat"); show("item"); return; }
+});
+document.addEventListener("input",function(e){
+  if(e.target.id!=="reason") return; var a=st.ans[cur().id]; a.reason=e.target.value;
+  var sb=$("#seeBtn"); if(sb) sb.disabled=!(a.pick!==null && wc(a.reason)>=4);
+});
+
+/* ---------- init ---------- */
+if(/^ar\b/i.test(new URLSearchParams(location.search).get("lang")||"")) setLang("ar"); else applyStatic();
+if(!LIVE){ var pv=document.createElement("div"); pv.className="preview"; pv.textContent="Preview mode: not saving"; document.body.appendChild(pv); }
+})();
+</script>
+</body>
+</html>
