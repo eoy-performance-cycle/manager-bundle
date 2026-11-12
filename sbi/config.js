@@ -1,8 +1,8 @@
-// Floward Manager Feedback Bundle: SBI practice activity configuration.
-// Paste your Supabase project URL and its PUBLIC anon (publishable) key below.
+// Floward Manager Feedback Bundle: shared configuration for every practice activity.
+// Activities save through the bundle-track Edge Function, so no key is stored here.
 // Never paste the service_role / secret key here: this file is public.
-// To go live: paste the anon key between the two quote marks on the supabaseAnonKey line.
 window.SBI_CONFIG = {
+  trackUrl: "https://ilpppwfqddnvzkdtpilu.supabase.co/functions/v1/bundle-track",
   supabaseUrl: "https://ilpppwfqddnvzkdtpilu.supabase.co",
   supabaseAnonKey: "",
   activityId: "sbi-practice-v1",
