@@ -240,7 +240,8 @@ html[dir="rtl"] .guide .model{border-radius:10px 0 0 10px}
 var CFG = window.SBI_CONFIG || {};
 var ACTIVITY = "rating-practice-v1";
 var DOMAIN = (CFG.emailDomain || "floward.com").toLowerCase();
-var LIVE = !!(CFG.supabaseUrl && CFG.supabaseAnonKey);
+var TRACK = (CFG.trackUrl || "").replace(/\/$/,"");
+var LIVE = !!(TRACK || (CFG.supabaseUrl && CFG.supabaseAnonKey));
 
 var SCALE=[1.0,1.5,2.0,2.5,3.0,3.5,4.0,4.5,5.0];
 var LB={
@@ -400,8 +401,8 @@ function uuid(){ if(window.crypto && crypto.randomUUID) return crypto.randomUUID
 var warned=false;
 function post(table,row){
   if(!LIVE){ if(window.console) console.info("[Rating preview, not saved]",table,row); return Promise.resolve(true); }
-  return fetch(CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/"+table,{ method:"POST", keepalive:true,
-    headers:{ "apikey":CFG.supabaseAnonKey, "Authorization":"Bearer "+CFG.supabaseAnonKey, "Content-Type":"application/json", "Prefer":"return=minimal" },
+  return fetch(TRACK ? TRACK+"/"+table : CFG.supabaseUrl.replace(/\/$/,"")+"/rest/v1/"+table,{ method:"POST", keepalive:true,
+    headers: TRACK ? { "Content-Type":"text/plain;charset=UTF-8" } : { "apikey":CFG.supabaseAnonKey, "Authorization":"Bearer "+CFG.supabaseAnonKey, "Content-Type":"application/json", "Prefer":"return=minimal" },
     body:JSON.stringify(row) }).then(function(r){ if(!r.ok) throw new Error(r.status); return true; })
     .catch(function(e){ if(!warned){ warned=true; toast(T[lang].saveFail); } if(window.console) console.warn("Rating save failed",table,e); return false; });
 }
